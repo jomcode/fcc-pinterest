@@ -5,14 +5,28 @@ class Service {
     this.uuid = uuid;
   }
 
-  find(params) {
-    const session = this.driver.session();
-    session.close();
-  }
+  // find(params) {}
 
   get(id) {
     const session = this.driver.session();
-    session.close();
+
+    const cypher = 'MATCH (u:User) WHERE u.userId = {userId} RETURN u';
+
+    const cypherParams = {
+      userId: id
+    };
+
+    return session
+      .run(cypher, cypherParams)
+      .then(r => {
+        const records = r.records.slice();
+        session.close();
+        return records;
+      })
+      .catch(e => {
+        session.close();
+        console.error(e);
+      });
   }
 
   create(data) {
@@ -37,13 +51,13 @@ class Service {
         session.close();
         return records;
       })
-      .catch((e) => console.error(e));
+      .catch(e => {
+        session.close();
+        console.error(e);
+      });
   }
 
-  update(id, data) {
-    const session = this.driver.session();
-    session.close();
-  }
+  // update(id, data) {}
 
   patch(id, data) {
     const session = this.driver.session();
@@ -66,7 +80,10 @@ class Service {
         session.close();
         return numDeleted;
       })
-      .catch(e => console.error(e));
+      .catch(e => {
+        session.close();
+        console.error(e);
+      });
   }
 }
 
