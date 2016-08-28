@@ -97,3 +97,5 @@ create `.env` file and set variables
 `WEBPACK_PORT` webpack-dev-server. defaults to 8080
 
 ## TODO
+- validator.js for isUUID and other validation?
+- createdOn etc timestamps with momentjs?

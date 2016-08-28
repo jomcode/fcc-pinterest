@@ -4,7 +4,6 @@ const init = service => {
   const router = express.Router();
 
   router.param('userId', (req, res, next, id) => {
-    // fetch from database, set req.user equal to user
     next();
   });
 
@@ -30,6 +29,7 @@ const init = service => {
   // .patch((req, res) => {})
   // .put((req, res) => {})
 
+  // TODO validate user (body.data)
   .post((req, res) => {
     const data = Object.assign({}, req.body.data);
 

@@ -6,6 +6,7 @@ const session = require('express-session');
 const morgan = require('morgan');
 
 const userService = require('./services/user');
+const postService = require('./services/post');
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.get('/foo', (req, res) => {
 });
 
 app.use(userService);
+app.use(postService);
 
 module.exports = app;

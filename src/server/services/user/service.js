@@ -39,8 +39,8 @@ class Service {
   create(data) {
     const session = this.driver.session();
 
-    const cypher = 'CREATE (n:User {username : {usernameParam}, ' +
-      'email : {emailParam}, password: {passwordParam}, userId : {userIdParam} ' +
+    const cypher = 'CREATE (n:User {username: {usernameParam}, ' +
+      'email: {emailParam}, password: {passwordParam}, userId: {userIdParam} ' +
       '}) RETURN n';
 
     const cypherParams = {
