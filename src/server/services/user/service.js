@@ -1,7 +1,14 @@
 'use strict';
+const neo4j = require('neo4j-driver').v1;
+const uuid = require('node-uuid');
+
+const dbConfig = require('../../config').neo4j;
+
+const driver = neo4j.driver(dbConfig, neo4j.auth.basic('neo4j', 'admin'));
+
 class Service {
-  constructor(neo4jDriver, uuid) {
-    this.driver = neo4jDriver;
+  constructor() {
+    this.driver = driver;
     this.uuid = uuid;
   }
 
@@ -58,11 +65,7 @@ class Service {
   }
 
   // update(id, data) {}
-
-  patch(id, data) {
-    const session = this.driver.session();
-    session.close();
-  }
+  // patch(id, data) {}
 
   remove(id) {
     const session = this.driver.session();

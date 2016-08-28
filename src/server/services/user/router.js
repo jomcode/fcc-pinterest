@@ -10,6 +10,7 @@ const init = service => {
 
   router.route('/users/:userId?')
 
+  // TODO handle if id is not found
   .get((req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.userId.slice();
@@ -26,13 +27,8 @@ const init = service => {
       });
   })
 
-  .patch((req, res) => {
-    res.json({ user: 'patch /users/:userId?' });
-  })
-
-  .put((req, res) => {
-    res.json({ user: 'put /users/:userId?' });
-  })
+  // .patch((req, res) => {})
+  // .put((req, res) => {})
 
   .post((req, res) => {
     const data = Object.assign({}, req.body.data);
@@ -50,7 +46,7 @@ const init = service => {
       });
   })
 
-  // TODO handle if id not found
+  // TODO handle if id is not found
   .delete((req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.userId.slice();
