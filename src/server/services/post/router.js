@@ -23,6 +23,7 @@ const init = service => {
       });
   });
 
+  // get all posts by userId
   // TODO validate id, handle id not found
   router.get('/posts/user/:userId', (req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
@@ -42,6 +43,25 @@ const init = service => {
           prev.posts.push(post);
           return prev;
         }, {});
+
+        res.status(200).json({ data: formatted });
+      })
+      .catch(e => {
+        console.error(e);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  });
+
+  // TODO clean this up
+  router.get('/posts', (req, res) => {
+    return service.find()
+      .then(result => {
+        const formatted = result.map(r => {
+          const user = Object.assign({}, r._fields[0]);
+          delete user.properties.password; // remove password
+          const post = Object.assign({}, r._fields[1]);
+          return { user, post };
+        });
 
         res.status(200).json({ data: formatted });
       })

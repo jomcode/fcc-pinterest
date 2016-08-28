@@ -12,18 +12,36 @@ class Service {
     this.uuid = uuid;
   }
 
-  // TODO if params does not params: { query: { userId: 'someid' } } then
-  // return all posts, otherwise return all posts by that user
+  // TODO clean this up
   find(params) {
     const session = this.driver.session();
 
-    const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(posts) ' +
+    if (params && params.query) {
+      const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(posts) ' +
       'WHERE u.userId = {userId} ' +
       'RETURN u, posts';
 
-    const cypherParams = {
-      userId: params.query.userId
-    };
+      const cypherParams = {
+        userId: params.query.userId
+      };
+
+      return session
+      .run(cypher, cypherParams)
+      .then(r => {
+        const records = r.records.slice();
+        session.close();
+        return records;
+      })
+      .catch(e => {
+        console.error(e);
+        session.close();
+      });
+    }
+
+    const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(posts) ' +
+      'RETURN u, posts';
+
+    const cypherParams = {};
 
     return session
       .run(cypher, cypherParams)
