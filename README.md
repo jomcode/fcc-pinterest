@@ -1,5 +1,34 @@
-#reactbp
-starting point for full stack react apps.
+#Pinterstish App
+
+## Server services
+`find(params) {}`
+`get(id) {}`
+`create(data) {}`
+`update(id, data) {}` destructive
+`patch(id, data) {}`
+`remove(id) {}`
+
+## Entities
+
+**user**
+- unique identifier
+- username
+- email
+- password
+
+**post**
+- unique identifier
+- postedBy / userId relationship
+- title
+- imageurl
+
+**twitterUser**
+- unique identifier / twitterId
+- userId relationship
+
+***
+
+## Misc Project Info
 
 **client**
 - webpack development, production, and test configurations
@@ -63,6 +92,3 @@ create `.env` file and set variables
 `WEBPACK_PORT` webpack-dev-server. defaults to 8080
 
 ## TODO
-
-- set up code coverage for server side
-- decide where to initialize dotenv for server, etc
