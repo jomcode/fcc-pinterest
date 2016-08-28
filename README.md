@@ -1,11 +1,16 @@
-#Pinterstish App
+#Pinterestish App
 
 ## Server services
 `find(params) {}`
+
 `get(id) {}`
+
 `create(data) {}`
+
 `update(id, data) {}` destructive
+
 `patch(id, data) {}`
+
 `remove(id) {}`
 
 ## Entities
@@ -22,7 +27,7 @@
 - title
 - imageurl
 
-**twitterUser**
+**twitterAccount**
 - unique identifier / twitterId
 - userId relationship
 

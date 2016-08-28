@@ -40,19 +40,33 @@ class Service {
       .catch((e) => console.error(e));
   }
 
-  update() {
+  update(id, data) {
     const session = this.driver.session();
     session.close();
   }
 
-  patch() {
+  patch(id, data) {
     const session = this.driver.session();
     session.close();
   }
 
-  remove() {
+  remove(id) {
     const session = this.driver.session();
-    session.close();
+
+    const cypher = 'MATCH (u:User) WHERE u.userId = {userIdParam} ' +
+      'DETACH DELETE u RETURN u';
+
+    const cypherParams = { userIdParam: id };
+
+    return session
+      .run(cypher, cypherParams)
+      .then(r => {
+        const numDeleted = r.records.length; // return number of records deleted
+        // const result = Object.assign({}, r.summary.updateStatistics._stats);
+        session.close();
+        return numDeleted;
+      })
+      .catch(e => console.error(e));
   }
 }
 

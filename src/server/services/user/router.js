@@ -35,8 +35,17 @@ const init = service => {
       .catch(e => console.error(e));
   })
 
+  // TODO handle if id not found
   .delete((req, res) => {
-    res.json({ user: 'delete /users/:userId?' });
+    if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
+    const id = req.params.userId.slice();
+
+    return service.remove(id)
+      .then(result => {
+        // if (result === 0)
+        res.status(204).json();
+      })
+      .catch(e => console.error(e));
   });
 
   return router;
