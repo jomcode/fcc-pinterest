@@ -71,6 +71,22 @@ const init = service => {
       });
   });
 
+  // TODO restrict to owner / user only, handle id not found or invalid id
+  router.delete('/posts/:postId', (req, res) => {
+    if (!req.params.postId) return res.status(400).json({ error: 'Bad Request' });
+    const id = req.params.postId.slice();
+
+    return service.remove(id)
+      .then(result => {
+        // if (result < 1)
+        res.status(204).json();
+      })
+      .catch(e => {
+        console.error(e);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  });
+
   return router;
 };
 

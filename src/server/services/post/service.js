@@ -88,7 +88,30 @@ class Service {
 
   // update(id, data) {}
   // patch(id, data) {}
-  // remove(id) {}
+
+  remove(id) {
+    const session = this.driver.session();
+
+    const cypher = 'MATCH (p:Post) WHERE p.postId = {postId} ' +
+      'DETACH DELETE p ' +
+      'RETURN p';
+
+    const cypherParams = {
+      postId: id
+    };
+
+    return session
+      .run(cypher, cypherParams)
+      .then(r => {
+        const numDeleted = r.records.length;
+        session.close();
+        return numDeleted;
+      })
+      .catch(e => {
+        console.error(e);
+        session.close();
+      });
+  }
 }
 
 module.exports = Service;

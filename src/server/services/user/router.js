@@ -53,7 +53,7 @@ const init = service => {
 
     return service.remove(id)
       .then(result => {
-        // if (result === 0)
+        // if (result < 1)
         res.status(204).json();
       })
       .catch(e => {
