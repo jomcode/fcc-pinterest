@@ -1,11 +1,5 @@
 'use strict';
-class Service {
-  find() {}
-  get() {}
-  create() {}
-  update() {}
-  patch() {}
-  remove() {}
-}
+const twitterAccountService = require('./service');
+const router = require('./router');
 
-module.exports = Service;
+module.exports = router(new twitterAccountService());
