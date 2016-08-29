@@ -29,6 +29,7 @@
 
 **twitterAccount**
 - unique identifier / twitterId
+- set username property on user equal to passport user object username
 - userId relationship
 
 ***
