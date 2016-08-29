@@ -23,6 +23,11 @@ const init = passport => {
     res.render('profile', { user: req.user });
   });
 
+  router.get('/logout/twitter', (req, res) => {
+    req.logout();
+    res.redirect('/home');
+  });
+
   return router;
 };
 

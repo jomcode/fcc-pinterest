@@ -1,6 +1,7 @@
 const Strategy = require('passport-twitter').Strategy;
 
 const twitterConfig = require('../').twitter;
+const twitterAccountService = require('../../services/twitteraccount/service');
 
 const init = passport => {
   passport.use(new Strategy({
@@ -8,8 +9,24 @@ const init = passport => {
     consumerSecret: twitterConfig.consumerSecret,
     callbackURL: twitterConfig.callbackUrl
   },
-  function (token, tokenSecret, profile, cb) {
-    return cb(null, profile);
+  (token, tokenSecret, profile, cb) => {
+    const twitterId = profile.id;
+    const username = profile.username;
+
+    const tas = new twitterAccountService();
+
+    tas.get(twitterId)
+      .then(result => {
+        if (result.length < 1) {
+          tas.create({ twitterId, username })
+            .then(r => cb(null, { twitterId, username }));
+        }
+
+        cb(null, { twitterId, username });
+      })
+      .catch(e => {
+        cb(e, null);
+      });
   }));
 };
 
