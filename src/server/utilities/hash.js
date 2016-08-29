@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 
 const passwordSalt = require('../config').salt;
 
+// hash utilities for local user accounts
+
 const hashHof = salt => pw => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(pw, salt, (err, hashedPassword) => {
