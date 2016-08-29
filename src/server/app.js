@@ -1,15 +1,25 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const compress = require('compression');
 const session = require('express-session');
 const morgan = require('morgan');
+const passport = require('passport');
+const RedisStore = require('connect-redis')(session);
 
+const configurePassport = require('./config/passport');
+const redisConfig = require('./config').redis;
+const sessionSecret = require('./config').sessionSecret;
 const userService = require('./services/user');
 const postService = require('./services/post');
 const twitterAccountService = require('./services/twitteraccount');
+const twitterLoginService = require('./services/twitterlogin');
 
 const app = express();
+
+app.set('views', path.join(__dirname, 'services', 'twitterlogin', 'views'));
+app.set('view engine', 'ejs');
 
 const logMode = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
@@ -18,14 +28,38 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan(logMode));
 app.use(compress());
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('dist'));
+
+const redisOptions = {
+  host: redisConfig.host,
+  port: redisConfig.port
+};
+
+app.use(session({
+  store: new RedisStore(redisOptions),
+  secret: sessionSecret,
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production'
+    // maxAge: 360000 // ms - 6 mins
+  }
+}));
+
+configurePassport(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/foo', (req, res) => {
   res.status(200).json({ foo: 'bar' });
 });
 
+if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
+
 app.use(userService);
 app.use(postService);
 app.use(twitterAccountService);
+app.use(twitterLoginService(passport));
 
 module.exports = app;
