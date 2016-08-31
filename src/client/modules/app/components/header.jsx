@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 import NavBar from './navbar';
 
-const Header = ({ isAuthenticated, logoutHandler, userId }) => (
+const Header = ({ isAuthenticated, logoutHandler, currentUser }) => (
   <header>
     <NavBar
       isAuthenticated={isAuthenticated}
       logoutHandler={logoutHandler}
-      userId={userId}
+      currentUser={currentUser}
     />
   </header>
 );
