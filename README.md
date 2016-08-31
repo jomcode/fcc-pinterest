@@ -98,5 +98,6 @@ create `.env` file and set variables
 `WEBPACK_PORT` webpack-dev-server. defaults to 8080
 
 ## TODO
+- server response on POST to /posts endpoint
 - validator.js for isUUID and other validation?
 - createdOn etc timestamps with momentjs?
