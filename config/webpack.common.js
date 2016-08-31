@@ -7,7 +7,7 @@ const autoprefixer = require('autoprefixer');
 const helpers = require('./helpers');
 
 const METADATA = {
-  title: 'FCC Pinterest'
+  title: 'Pinterestish'
 };
 
 module.exports = {

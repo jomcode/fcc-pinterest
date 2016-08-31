@@ -14,9 +14,9 @@ const init = passport => {
   router.get('/login/twitter', passport.authenticate('twitter'));
 
   router.get('/login/twitter/callback',
-    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    passport.authenticate('twitter', { failureRedirect: '/' }),
     (req, res) => {
-      res.redirect('/home');
+      res.redirect('/');
     });
 
   router.get('/profile', (req, res) => {
@@ -25,7 +25,7 @@ const init = passport => {
 
   router.get('/logout/twitter', (req, res) => {
     req.logout();
-    res.redirect('/home');
+    res.redirect('/');
   });
 
   return router;

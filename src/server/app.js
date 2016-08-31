@@ -29,7 +29,7 @@ app.use(compress());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('dist'));
+app.use('/dist', express.static('dist'));
 
 const redisOptions = {
   host: redisConfig.host,
@@ -50,6 +50,13 @@ app.use(session({
 configurePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('/', (req, res) => {
+  if (process.env.NODE_ENV !== 'production') {
+    return res.redirect('http://127.0.0.1:8080'); // for twitter callback
+  }
+  return res.redirect('/dist');
+});
 
 app.get('/foo', (req, res) => {
   res.status(200).json({ foo: 'bar' });
