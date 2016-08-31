@@ -26,8 +26,13 @@ const logMode = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
 if (process.env.NODE_ENV !== 'test') app.use(morgan(logMode));
 
+const corsOptions = {
+  origin: 'http://127.0.0.1:8080',
+  credentials: true
+};
+
 app.use(compress());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/dist', express.static('dist'));
@@ -37,7 +42,7 @@ const redisOptions = {
   port: redisConfig.port
 };
 
-// TODO move sessions to twitter auth endpoint only
+// TODO move sessions to twitter auth endpoint only? would need jwt
 app.use(session({
   store: new RedisStore(redisOptions),
   secret: sessionSecret,

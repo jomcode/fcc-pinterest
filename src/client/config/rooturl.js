@@ -1,5 +1,5 @@
 const rootUrl = process.env.NODE_ENV === 'production' ?
   `${window.location.origin}` :
-'http://localhost:3030';
+'http://127.0.0.1:3030';
 
 export default rootUrl;

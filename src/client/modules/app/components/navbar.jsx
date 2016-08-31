@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 
+import rootUrl from '../../../config/rooturl';
+
+const loginLink = `${rootUrl}/login/twitter`;
+
 const NavBar = ({ isAuthenticated, logoutHandler, userId }) => {
   if (isAuthenticated) {
     return (
@@ -29,10 +33,6 @@ const NavBar = ({ isAuthenticated, logoutHandler, userId }) => {
       </div>
     );
   }
-
-  const loginLink = process.env.NODE_ENV !== 'production' ?
-    'http://127.0.0.1:3030/login/twitter' :
-    `${window.location.origin}:${process.env.PORT}/login/twitter`;
 
   return (
     <div>

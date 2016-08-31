@@ -1,18 +1,45 @@
 import * as actionTypes from './actiontypes';
 
+import rootUrl from '../../config/rooturl';
+
 const login = () => ({
   type: actionTypes.LOGIN
 });
 
-const loginSuccess = () => ({
-  type: actionTypes.LOGIN_SUCCESS
+const loginSuccess = (user) => ({
+  type: actionTypes.LOGIN_SUCCESS,
+  payload: {
+    user
+  }
 });
 
-const loginFailure = () => ({
-  type: actionTypes.LOGIN_FAILURE
+const loginFailure = (error) => ({
+  type: actionTypes.LOGIN_FAILURE,
+  error
 });
 
-const loginUser = () => dispatch => {};
+// make GET request to /auth/verify endpoint to see if authenticated
+// returns user info if successful
+const loginUser = () => dispatch => {
+  dispatch(login());
+
+  fetch(`${rootUrl}/auth/verify`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+    .then(response => {
+      if (response.status !== 200) throw new Error(response.statusText);
+      return response.json();
+    })
+    .then(json => {
+      const user = Object.assign({}, json.data);
+      dispatch(loginSuccess(user));
+    })
+    .catch(e => dispatch(loginFailure(e)));
+};
 
 export { loginUser };
 

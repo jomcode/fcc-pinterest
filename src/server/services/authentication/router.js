@@ -6,7 +6,8 @@ const init = service => {
   const router = express.Router();
 
   router.get('/auth/verify', isAuthenticated, (req, res) => {
-    return res.status(200).json({ data: { isAuthenticated: true } });
+    const user = Object.assign({}, req.user, { isAuthenticated: true });
+    return res.status(200).json({ data: user });
   });
 
   return router;

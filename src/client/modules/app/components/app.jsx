@@ -10,7 +10,10 @@ class App extends Component {
     this._handleLogout = this._handleLogout.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { actions: { loginUser }, dispatch } = this.props;
+    dispatch(loginUser());
+  }
 
   componentDidUpdate() {}
 

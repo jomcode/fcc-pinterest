@@ -56,6 +56,9 @@ module.exports = webpackMerge(commonConfig, {
       chunkModules: false,
       modules: false,
       children: false
+    },
+    proxy: {
+      '*': 'http://127.0.0.1:3030'
     }
   },
   node: {
