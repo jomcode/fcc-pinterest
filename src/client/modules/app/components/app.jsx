@@ -17,7 +17,10 @@ class App extends Component {
 
   componentDidUpdate() {}
 
-  _handleLogout() {}
+  _handleLogout() {
+    const { actions: { logoutUser }, dispatch } = this.props;
+    dispatch(logoutUser());
+  }
 
   render() {
     const { children, isAuthenticated, userId } = this.props;

@@ -51,10 +51,28 @@ const logoutSuccess = () => ({
   type: actionTypes.LOGOUT_SUCCESS
 });
 
-const logoutFailure = () => ({
-  type: actionTypes.LOGOUT_FAILURE
+const logoutFailure = (error) => ({
+  type: actionTypes.LOGOUT_FAILURE,
+  error
 });
 
-const logoutUser = () => dispatch => {};
+// log user out from session
+const logoutUser = () => dispatch => {
+  dispatch(logout());
+
+  fetch(`${rootUrl}/logout/twitter`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.status !== 200) throw new Error(response.statusText);
+    return response.json();
+  })
+  .then(json => dispatch(logoutSuccess()))
+  .catch(e => dispatch(logoutFailure(e)));
+};
 
 export { logoutUser };

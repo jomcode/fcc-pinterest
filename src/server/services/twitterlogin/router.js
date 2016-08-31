@@ -27,7 +27,7 @@ const init = passport => {
 
   router.get('/logout/twitter', isAuthenticated, (req, res) => {
     req.logout();
-    res.redirect('/');
+    return res.status(200).json({ data: { isAuthenticated: false } });
   });
 
   return router;
