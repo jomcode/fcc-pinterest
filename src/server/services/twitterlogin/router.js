@@ -1,5 +1,7 @@
 const express = require('express');
 
+const isAuthenticated = require('../../middleware/isauthenticated');
+
 const init = passport => {
   const router = express.Router();
 
@@ -19,11 +21,11 @@ const init = passport => {
       res.redirect('/');
     });
 
-  router.get('/profile', (req, res) => {
+  router.get('/profile', isAuthenticated, (req, res) => {
     res.render('profile', { user: req.user });
   });
 
-  router.get('/logout/twitter', (req, res) => {
+  router.get('/logout/twitter', isAuthenticated, (req, res) => {
     req.logout();
     res.redirect('/');
   });

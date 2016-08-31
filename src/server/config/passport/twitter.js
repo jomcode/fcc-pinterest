@@ -15,14 +15,21 @@ const init = passport => {
 
     const tas = new twitterAccountService();
 
+    // only store userId and twitterId in session, user ids in deserializeUser
+    // to fetch whatever else from database
     tas.get(twitterId)
       .then(result => {
         if (result.length < 1) {
-          tas.create({ twitterId, username })
-            .then(r => cb(null, { twitterId, username }));
+          return tas.create({ twitterId, username })
+            .then(r => {
+              const userId = r[0]._fields[0].properties.userId;
+              cb(null, { userId, twitterId });
+            });
         }
 
-        cb(null, { twitterId, username });
+        const userId = result[0]._fields[0].properties.userId;
+
+        return cb(null, { userId, twitterId });
       })
       .catch(e => {
         cb(e, null);

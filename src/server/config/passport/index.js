@@ -8,6 +8,7 @@ const configurePassport = passport => {
     cb(null, user);
   });
 
+  // TODO get user from database here
   passport.deserializeUser(function (obj, cb) {
     cb(null, obj);
   });

@@ -23,7 +23,6 @@ class App extends Component {
       <div>
         <Header
           isAuthenticated={isAuthenticated}
-          loginHandler={this._handleLogin}
           logoutHandler={this._handleLogout}
           userId={userId}
         />

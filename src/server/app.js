@@ -15,6 +15,7 @@ const userService = require('./services/user');
 const postService = require('./services/post');
 const twitterAccountService = require('./services/twitteraccount');
 const twitterLoginService = require('./services/twitterlogin');
+const authenticationService = require('./services/authentication');
 
 const app = express();
 
@@ -36,6 +37,7 @@ const redisOptions = {
   port: redisConfig.port
 };
 
+// TODO move sessions to twitter auth endpoint only
 app.use(session({
   store: new RedisStore(redisOptions),
   secret: sessionSecret,
@@ -68,5 +70,6 @@ app.use(userService);
 app.use(postService);
 app.use(twitterAccountService);
 app.use(twitterLoginService(passport));
+app.use(authenticationService);
 
 module.exports = app;

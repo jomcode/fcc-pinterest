@@ -1,5 +1,7 @@
+// check for req.user from passport
 const isAuthenticated = (req, res, next) => req.user ?
   next() :
-  res.redirect('/');
+  res.status(401).json({ error: 'Unauthorized' });
 
-export default isAuthenticated;
+
+module.exports = isAuthenticated;
