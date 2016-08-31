@@ -5,6 +5,7 @@ import 'redux';
 import 'react-redux';
 import 'react-router-redux';
 import 'redux-thunk';
+import 'redux-form';
 import 'ramda';
 
 import 'normalize.css';
