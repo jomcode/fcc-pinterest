@@ -23,12 +23,12 @@ class App extends Component {
   }
 
   render() {
-    const { children, isAuthenticated, currentUser } = this.props;
+    const { children, auth, currentUser } = this.props;
 
     return (
       <div>
         <Header
-          isAuthenticated={isAuthenticated}
+          auth={auth}
           logoutHandler={this._handleLogout}
           currentUser={currentUser}
         />

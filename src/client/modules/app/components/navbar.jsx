@@ -5,8 +5,24 @@ import rootUrl from '../../../config/rooturl';
 
 const loginLink = `${rootUrl}/login/twitter`;
 
-const NavBar = ({ isAuthenticated, logoutHandler, currentUser }) => {
+const NavBar = ({ auth, logoutHandler, currentUser }) => {
   const { userId } = currentUser;
+  const { isAuthenticated, isFetching } = auth;
+
+  // TODO render loading
+  if (isFetching) {
+    return (
+      <div>
+        <nav>
+          <div>
+            <a href="#">Pinterestish</a>
+            <span>Loading...</span>
+          </div>
+        </nav>
+      </div>
+    );
+  }
+
   if (isAuthenticated) {
     return (
       <div>

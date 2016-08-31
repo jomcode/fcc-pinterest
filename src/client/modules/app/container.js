@@ -6,7 +6,7 @@ import auth from '../auth';
 const { actions } = auth;
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
   currentUser: state.currentUser
 });
 
