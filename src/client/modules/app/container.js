@@ -7,7 +7,7 @@ const { actions } = auth;
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  // userId: state.auth.user !== null ? state.auth.user.id : null
+  currentUser: state.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -9,7 +9,7 @@ const initialState = {
 const currentUser = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.POPULATE_CURRENT_USER: {
-      const { userId, twitterId, username } = action.payload;
+      const { currentUser: { userId, twitterId, username } } = action.payload;
 
       return Object.assign({}, state, { userId, twitterId, username });
     }

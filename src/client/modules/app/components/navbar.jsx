@@ -5,7 +5,8 @@ import rootUrl from '../../../config/rooturl';
 
 const loginLink = `${rootUrl}/login/twitter`;
 
-const NavBar = ({ isAuthenticated, logoutHandler, userId }) => {
+const NavBar = ({ isAuthenticated, logoutHandler, currentUser }) => {
+  const { userId } = currentUser;
   if (isAuthenticated) {
     return (
       <div>
