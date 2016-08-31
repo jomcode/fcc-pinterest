@@ -1,5 +1,7 @@
 const express = require('express');
 
+const isAuthenticated = require('../../middleware/isauthenticated');
+
 const init = service => {
   const router = express.Router();
 
@@ -7,7 +9,7 @@ const init = service => {
     next();
   });
 
-  router.post('/posts', (req, res) => {
+  router.post('/posts', isAuthenticated, (req, res) => {
     const data = Object.assign(req.body.data);
 
     return service.create(data)
@@ -72,7 +74,8 @@ const init = service => {
   });
 
   // TODO restrict to owner / user only, handle id not found or invalid id
-  router.delete('/posts/:postId', (req, res) => {
+  // check userId from session against the database
+  router.delete('/posts/:postId', isAuthenticated, (req, res) => {
     if (!req.params.postId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.postId.slice();
 

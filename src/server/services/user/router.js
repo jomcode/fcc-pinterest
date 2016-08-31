@@ -1,5 +1,7 @@
 const express = require('express');
 
+const isAuthenticated = require('../../middleware/isauthenticated');
+
 const init = service => {
   const router = express.Router();
 
@@ -9,8 +11,8 @@ const init = service => {
 
   router.route('/users/:userId?')
 
-  // TODO handle if id is not found
-  .get((req, res) => {
+  // TODO handle if id is not found, should this be authenticated?
+  .get(isAuthenticated, (req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.userId.slice();
 
@@ -46,8 +48,8 @@ const init = service => {
       });
   })
 
-  // TODO handle if id is not found
-  .delete((req, res) => {
+  // TODO handle if id is not found, restrict to owner?
+  .delete(isAuthenticated, (req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.userId.slice();
 
