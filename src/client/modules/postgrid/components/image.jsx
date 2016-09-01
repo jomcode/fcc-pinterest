@@ -9,10 +9,15 @@ class Image extends Component {
     };
 
     this._onError = this._onError.bind(this);
+    this._onLoad = this._onLoad.bind(this);
   }
 
   _onError() {
     this.setState(Object.assign({}, this.state, { error: true }));
+  }
+
+  _onLoad(e) {
+    // console.log('onLoad', e.target.height);
   }
 
   render() {
@@ -21,8 +26,18 @@ class Image extends Component {
     const placeholderUrl = 'https://placehold.it/250x150';
 
     return error ?
-      <img onError={this._onError} src={placeholderUrl} role="presentation" /> :
-      <img onError={this._onError} src={imageUrl} role="presentation" />;
+      <img
+        onLoad={this._onLoad}
+        onError={this._onError}
+        src={placeholderUrl}
+        role="presentation"
+      /> :
+      <img
+        onLoad={this._onLoad}
+        onError={this._onError}
+        src={imageUrl}
+        role="presentation"
+      />;
   }
 }
 

@@ -7,16 +7,8 @@
 ## Info
 Data: neo4j (records), redis (sessions)
 
-Client: react, react-router, redux, SASS, fetch, karma, mocha, chai, sinon, enzyme
+Client: react, react-router, redux, SASS, fetch
 
-Server: express, passport, seraph (neo4j), mocha, chai, sinon, supertest
+Server: express, passport, seraph (neo4j)
 
-Tools: webpack, babel, react-hot-loader, nodemon, istanbul, karma, eslint
-
-## TODO
-- very much refactoring with cool ramda stuff
-- server tests
-- client tests
-- styling
-- polish ux (loading indicators etc)
-- e2e tests?
+Tools: webpack, babel, react-hot-loader, nodemon, eslint

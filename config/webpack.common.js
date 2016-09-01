@@ -46,6 +46,10 @@ module.exports = {
           path.join(helpers.sourceDir, 'vendor.js'),
           path.join(helpers.modulesDir, 'normalize.css')
         ]
+      },
+      {
+        test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
+        loader: 'imports?define=>false&this=>window'
       }
     ]
   },

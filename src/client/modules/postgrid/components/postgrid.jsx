@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Masonry from 'react-masonry-component';
 
 import './postgrid.scss';
 import Post from './post';
 
-class PostGrid extends Component {
-  constructor(props) {
-    super(props);
+const masonryOptions = {
+  columnWidth: 250,
+  gutter: 10,
+  fitWidth: true
+};
 
-    this._renderLoading = this._renderLoading.bind(this);
-    this._renderUserPosts = this._renderUserPosts.bind(this);
-    this._renderRecentPosts = this._renderRecentPosts.bind(this);
-  }
-
-  _renderLoading() {
+const PostGrid = ({ posts, isFetching, currentUser, removeHandler }) => {
+  if (isFetching) {
     return (
       <div>
         Loading posts...
@@ -20,50 +19,33 @@ class PostGrid extends Component {
     );
   }
 
-  _renderUserPosts() {
-    const { posts, isFetching, currentUser, removeHandler } = this.props;
-
-    return posts.map(p =>
-      <Post
-        key={p.postId}
-        postId={p.postId}
-        imageUrl={p.imageUrl}
-        title={p.title}
-        userId={p.userId}
-        username={p.username}
-        isOwner={currentUser.userId === p.userId}
-        removeHandler={removeHandler}
-        isFetching={isFetching}
-      />
-    );
-  }
-
-  _renderRecentPosts() {
-    const { posts, isFetching } = this.props;
-
-    return posts.map(p =>
-      <Post
-        key={p.postId}
-        postId={p.postId}
-        imageUrl={p.imageUrl}
-        title={p.title}
-        userId={p.userId}
-        username={p.username}
-        isFetching={isFetching}
-      />
-    );
-  }
-
-  render() {
-    const { currentUser, isFetching } = this.props;
-
-    return (
-      <div className="post-grid">
-        {isFetching ? this._renderLoading() : null}
-        {currentUser ? this._renderUserPosts() : this._renderRecentPosts()}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Masonry
+        className="post-grid"
+        elementType="div"
+        options={masonryOptions}
+        disableImagesLoaded={false}
+        updateOnEachImageLoad={false}
+      >
+        {
+          posts.map(p =>
+            <Post
+              key={p.postId}
+              postId={p.postId}
+              imageUrl={p.imageUrl}
+              title={p.title}
+              userId={p.userId}
+              username={p.username}
+              isOwner={currentUser ? currentUser.userId === p.userId : false}
+              removeHandler={removeHandler}
+              isFetching={isFetching}
+            />
+          )
+        }
+      </Masonry>
+    </div>
+  );
+};
 
 export default PostGrid;
