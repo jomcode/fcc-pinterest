@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import postGrid from '../../postgrid';
+
 class RecentPosts extends Component {
   componentDidMount() {
     const { actions: { getAllRecentPosts }, dispatch } = this.props;
@@ -10,7 +12,7 @@ class RecentPosts extends Component {
     const { recentPosts: { posts, isFetching } } = this.props;
     return (
       <div>
-        <p># of Posts: {posts.length}</p>
+        <postGrid.component posts={posts} isFetching={isFetching} />
       </div>
     );
   }

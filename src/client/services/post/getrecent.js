@@ -14,7 +14,12 @@ const getRecent = () =>
   })
   .then(json => {
     // TODO format posts data to certain shape
-    const posts = json.data.slice();
+    const posts = json.data.map(d => {
+      const p = Object.assign({}, d.post.properties);
+      const u = Object.assign({}, d.user.properties);
+      return Object.assign({}, p, u);
+    });
+
     return posts;
   });
 
