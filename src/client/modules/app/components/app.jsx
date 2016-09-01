@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import './app.scss';
 import Header from './header';
 
 class App extends Component {
@@ -15,7 +16,10 @@ class App extends Component {
     dispatch(loginUser());
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate(prevProps) {
+    const { auth: { isAuthenticated }, router } = this.props;
+    if (prevProps.auth.isAuthenticated && !isAuthenticated) router.push('/');
+  }
 
   _handleLogout() {
     const { actions: { logoutUser }, dispatch } = this.props;
@@ -33,7 +37,7 @@ class App extends Component {
           currentUser={currentUser}
         />
 
-        <div>
+        <div className="app-content">
           {children}
         </div>
       </div>

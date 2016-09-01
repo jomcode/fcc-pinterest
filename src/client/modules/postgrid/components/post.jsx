@@ -19,13 +19,21 @@ class Post extends Component {
     const { imageUrl, title, userId, username, isOwner, isFetching } = this.props;
 
     return (
-      <div>
-        <Image imageUrl={imageUrl} />
-        <h4>{title}</h4>
-        <span>
-          by:
-          <Link to={`/posts/users/${userId}`}>{username}</Link>
-        </span>
+      <div className="post-grid-item">
+        <div>
+          <Image imageUrl={imageUrl} />
+        </div>
+
+        <div>
+          <h4>{title}</h4>
+        </div>
+
+        <div className="posted-by">
+          <span>
+            by:
+            <Link to={`/posts/users/${userId}`}>{username}</Link>
+          </span>
+        </div>
 
         {
           isOwner ?

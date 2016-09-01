@@ -1,0 +1,33 @@
+.post-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.post-grid-item {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  border-style: solid;
+  margin: 1.5em;
+  padding: 0.5em 0.5em 0 0.5em;
+
+  max-width: 225px;
+
+  img {
+    width: 100%;
+  }
+
+  button {
+    margin: 0.5em 0 0.5em 0;
+  }
+
+  .posted-by {
+    padding: 0.5em 0 0.5em 0;
+  }
+}

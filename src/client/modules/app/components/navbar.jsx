@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 
+import './navbar.scss';
 import rootUrl from '../../../config/rooturl';
 
 const loginLink = `${rootUrl}/login/twitter`;
@@ -13,7 +14,7 @@ const NavBar = ({ auth, logoutHandler, currentUser }) => {
   if (isFetching) {
     return (
       <div>
-        <nav>
+        <nav className="header-navbar">
           <div>
             <a href="#">Pinterestish</a>
             <span>Loading...</span>
@@ -26,7 +27,7 @@ const NavBar = ({ auth, logoutHandler, currentUser }) => {
   if (isAuthenticated) {
     return (
       <div>
-        <nav>
+        <nav className="header-navbar">
           <div>
             <a href="#">Pinterestish</a>
             <IndexLink to="/" activeClassName="active-nav">Recent</IndexLink>
@@ -36,7 +37,9 @@ const NavBar = ({ auth, logoutHandler, currentUser }) => {
             >
               Your Posts
             </Link>
+          </div>
 
+          <div>
             <Link
               to="/posts/create"
               activeClassName="active-nav"
@@ -53,10 +56,13 @@ const NavBar = ({ auth, logoutHandler, currentUser }) => {
 
   return (
     <div>
-      <nav>
+      <nav className="header-navbar">
         <div>
           <a href="#">Pinterestish</a>
           <IndexLink to="/" activeClassName="active-nav">Recent</IndexLink>
+        </div>
+
+        <div>
           <a href={loginLink}>
             <button>Login via Twitter</button>
           </a>

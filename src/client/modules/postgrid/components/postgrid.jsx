@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import './postgrid.scss';
 import Post from './post';
 
 class PostGrid extends Component {
@@ -22,55 +23,46 @@ class PostGrid extends Component {
   _renderUserPosts() {
     const { posts, isFetching, currentUser, removeHandler } = this.props;
 
-    return (
-      <div>
-        {
-          posts.map(p =>
-            <Post
-              key={p.postId}
-              postId={p.postId}
-              imageUrl={p.imageUrl}
-              title={p.title}
-              userId={p.userId}
-              username={p.username}
-              isOwner={currentUser.userId === p.userId}
-              removeHandler={removeHandler}
-              isFetching={isFetching}
-            />
-          )
-        }
-      </div>
+    return posts.map(p =>
+      <Post
+        key={p.postId}
+        postId={p.postId}
+        imageUrl={p.imageUrl}
+        title={p.title}
+        userId={p.userId}
+        username={p.username}
+        isOwner={currentUser.userId === p.userId}
+        removeHandler={removeHandler}
+        isFetching={isFetching}
+      />
     );
   }
 
   _renderRecentPosts() {
     const { posts, isFetching } = this.props;
 
-    return (
-      <div>
-        {
-          posts.map(p =>
-            <Post
-              key={p.postId}
-              postId={p.postId}
-              imageUrl={p.imageUrl}
-              title={p.title}
-              userId={p.userId}
-              username={p.username}
-              isFetching={isFetching}
-            />
-          )
-        }
-      </div>
+    return posts.map(p =>
+      <Post
+        key={p.postId}
+        postId={p.postId}
+        imageUrl={p.imageUrl}
+        title={p.title}
+        userId={p.userId}
+        username={p.username}
+        isFetching={isFetching}
+      />
     );
   }
 
   render() {
     const { currentUser, isFetching } = this.props;
 
-    if (isFetching) return this._renderLoading();
-
-    return currentUser ? this._renderUserPosts() : this._renderRecentPosts();
+    return (
+      <div className="post-grid">
+        {isFetching ? this._renderLoading() : null}
+        {currentUser ? this._renderUserPosts() : this._renderRecentPosts()}
+      </div>
+    );
   }
 }
 

@@ -1,0 +1,26 @@
+.header-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: 60px;
+  padding: 0 2em 0 2em;
+
+  a {
+    text-decoration: none;
+  }
+
+  a + a, a + button {
+    margin-left: 2em;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  // Active link class
+  .active-nav {
+  }
+}
