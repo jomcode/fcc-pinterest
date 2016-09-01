@@ -20,7 +20,7 @@
     "tdd:client": "better-npm-run tdd:client",
     "tdd:client:hot": "better-npm-run tdd:client:hot",
     "tdd:server": "better-npm-run tdd:server",
-    "heroku-postbuild": "npm run build:client"
+    "heroku-postbuild": "npm run build"
   },
   "betterScripts": {
     "dev:server": {
