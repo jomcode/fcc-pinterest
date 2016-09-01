@@ -1,6 +1,5 @@
 import * as actionTypes from './actiontypes';
-
-import rootUrl from '../../config/rooturl';
+import postService from '../../services/post';
 
 const getUserPosts = (userId) => ({
   type: actionTypes.GET_USER_POSTS,
@@ -29,23 +28,10 @@ const resetGetUserPosts = () => ({
 const getPostsByUser = userId => dispatch => {
   dispatch(getUserPosts(userId));
 
-  fetch(`${rootUrl}/posts/user/${userId}`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      Accept: 'application/json'
-    }
-  })
-  .then(response => {
-    if (response.status !== 200) throw new Error(response.statusText);
-    return response.json();
-  })
-  .then(json => {
-    const user = Object.assign({}, json.data.user);
-    const posts = json.data.posts.slice();
-    dispatch(getUserPostsSuccess(user, posts));
-  })
-  .catch(e => dispatch(getUserPostsFailure(e)));
+  postService
+    .getByUserId(userId)
+    .then(posts => dispatch(getUserPostsSuccess(posts.user, posts.posts)))
+    .catch(e => dispatch(getUserPostsFailure(e)));
 };
 
 export { getPostsByUser, resetGetUserPosts };
@@ -72,6 +58,11 @@ const resetRemovePost = () => ({
 
 const removeUserPost = postId => dispatch => {
   dispatch(removePost());
+
+  postService
+    .removeByPostId(postId)
+    .then(result => dispatch(removePostSuccess(postId)))
+    .catch(e => dispatch(removePostFailure(e)));
 };
 
 export { removeUserPost, resetRemovePost };

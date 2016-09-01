@@ -1,6 +1,5 @@
 import * as actionTypes from './actiontypes';
-
-import rootUrl from '../../config/rooturl';
+import postService from '../../services/post';
 
 const createPost = () => ({
   type: actionTypes.CREATE_POST
@@ -22,23 +21,16 @@ const resetCreatePost = () => ({
 const createNewPost = (data) => dispatch => {
   dispatch(createPost());
 
-  fetch(`${rootUrl}/posts`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ data })
-  })
-  .then(response => {
-    if (response.status !== 201) throw new Error(response.statusText);
-    return response.json();
-  })
-  .then(json => {
-    dispatch(createPostSuccess());
-  })
-  .catch(e => dispatch(createPostFailure(e)));
+  postService
+    .create(data)
+    .then(response => {
+      if (response.status !== 201) throw new Error(response.statusText);
+      return response.json();
+    })
+    .then(json => {
+      dispatch(createPostSuccess());
+    })
+    .catch(e => dispatch(createPostFailure(e)));
 };
 
 export { createNewPost, resetCreatePost };

@@ -1,6 +1,5 @@
 import * as actionTypes from './actiontypes';
-
-import rootUrl from '../../config/rooturl';
+import authService from '../../services/authentication';
 
 const login = () => ({
   type: actionTypes.LOGIN
@@ -23,21 +22,9 @@ const loginFailure = (error) => ({
 const loginUser = () => dispatch => {
   dispatch(login());
 
-  fetch(`${rootUrl}/auth/verify`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      Accept: 'application/json'
-    }
-  })
-    .then(response => {
-      if (response.status !== 200) throw new Error(response.statusText);
-      return response.json();
-    })
-    .then(json => {
-      const user = Object.assign({}, json.data);
-      dispatch(loginSuccess(user));
-    })
+  authService
+    .verify()
+    .then(user => dispatch(loginSuccess(user)))
     .catch(e => dispatch(loginFailure(e)));
 };
 
@@ -60,19 +47,10 @@ const logoutFailure = (error) => ({
 const logoutUser = () => dispatch => {
   dispatch(logout());
 
-  fetch(`${rootUrl}/logout/twitter`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      Accept: 'application/json'
-    }
-  })
-  .then(response => {
-    if (response.status !== 200) throw new Error(response.statusText);
-    return response.json();
-  })
-  .then(json => dispatch(logoutSuccess()))
-  .catch(e => dispatch(logoutFailure(e)));
+  authService
+    .logout()
+    .then(response => dispatch(logoutSuccess()))
+    .catch(e => dispatch(logoutFailure(e)));
 };
 
 export { logoutUser };
