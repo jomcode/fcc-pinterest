@@ -35,9 +35,17 @@ module.exports = webpackMerge(commonConfig, {
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].chunk.js'
   },
-  // module: {
-    // loaders: []
-  // },
+  module: {
+    loaders: [
+      {
+        test: /\.scss$/,
+        loader: 'style!css!postcss!sass',
+        include: [
+          path.join(helpers.sourceDir)
+        ]
+      }
+    ]
+  },
   plugins: devPlugins,
   devServer: {
     contentBase: helpers.outputDir,
@@ -57,6 +65,7 @@ module.exports = webpackMerge(commonConfig, {
       modules: false,
       children: false
     },
+    // for making sessions work in development
     proxy: {
       '*': 'http://127.0.0.1:3030'
     }

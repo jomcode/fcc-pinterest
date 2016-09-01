@@ -69,7 +69,6 @@ class PostGrid extends Component {
     const { currentUser, isFetching } = this.props;
 
     if (isFetching) return this._renderLoading();
-    if (currentUser) return this._renderUserPosts();
 
     return currentUser ? this._renderUserPosts() : this._renderRecentPosts();
   }

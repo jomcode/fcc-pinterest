@@ -1,0 +1,10 @@
+$font-stack-sans: 'Ubuntu', sans-serif;
+$font-stack-serif: 'Playfair Display', serif;
+
+body {
+  font-family: $font-stack-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-stack-serif;
+}

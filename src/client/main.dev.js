@@ -8,6 +8,7 @@ import { render } from 'react-dom';
 import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
+import './main.scss';
 import root from './modules/root';
 import configureStore from './config/configurestore';
 /* eslint-enable */
