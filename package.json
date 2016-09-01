@@ -172,7 +172,6 @@
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "morgan": "^1.7.0",
-    "neo4j-driver": "^1.1.0-M01",
     "node-uuid": "^1.4.7",
     "normalize.css": "^4.2.0",
     "passport": "^0.3.2",
@@ -186,6 +185,7 @@
     "redux": "^3.5.2",
     "redux-form": "^6.0.1",
     "redux-thunk": "^2.1.0",
+    "seraph": "^0.15.2",
     "whatwg-fetch": "^1.0.0"
   }
 }

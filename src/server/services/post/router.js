@@ -5,19 +5,12 @@ const isAuthenticated = require('../../middleware/isauthenticated');
 const init = service => {
   const router = express.Router();
 
-  router.param('postId', (req, res, next, id) => {
-    next();
-  });
-
   router.post('/posts', isAuthenticated, (req, res) => {
     const data = Object.assign(req.body.data);
 
     return service.create(data)
       .then(result => {
-        const user = Object.assign({}, result[0]._fields[0]);
-        const post = Object.assign({}, result[0]._fields[1]);
-        delete user.properties.password; // remove password
-        res.status(201).json({ data: { user, post } });
+        res.status(201).json({ data: result });
       })
       .catch(e => {
         console.error(e);
@@ -34,19 +27,7 @@ const init = service => {
 
     return service.find({ query })
       .then(result => {
-        const formatted = result.reduce((prev, curr) => {
-          if (!prev.user) {
-            const user = Object.assign({}, curr._fields[0]);
-            delete user.properties.password; // remove password
-            prev.user = user;
-            prev.posts = [];
-          }
-          const post = Object.assign({}, curr._fields[1]);
-          prev.posts.push(post);
-          return prev;
-        }, {});
-
-        res.status(200).json({ data: formatted });
+        res.status(200).json({ data: result });
       })
       .catch(e => {
         console.error(e);
@@ -58,14 +39,7 @@ const init = service => {
   router.get('/posts', (req, res) => {
     return service.find()
       .then(result => {
-        const formatted = result.map(r => {
-          const user = Object.assign({}, r._fields[0]);
-          delete user.properties.password; // remove password
-          const post = Object.assign({}, r._fields[1]);
-          return { user, post };
-        });
-
-        res.status(200).json({ data: formatted });
+        res.status(200).json({ data: result });
       })
       .catch(e => {
         console.error(e);

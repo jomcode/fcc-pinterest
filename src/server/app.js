@@ -41,7 +41,7 @@ app.use('/dist', express.static('dist'));
 const redisOptions = {
   url: redisConfig
 };
-//http://app55944724-Qfb2Rx:uGzc1vKVkjsx6QaqsSB6@app55944724qfb2rx.sb10.stations.graphenedb.com:24789
+
 // TODO move sessions to twitter auth endpoint only? would need jwt
 app.use(session({
   store: new RedisStore(redisOptions),

@@ -1,13 +1,10 @@
 'use strict';
-const neo4j = require('neo4j-driver').v1;
+const seraph = require('seraph');
 const uuid = require('node-uuid');
 
 const dbConfig = require('../../config').neo4j;
 
-const driver = neo4j.driver(
-  dbConfig.url,
-  neo4j.auth.basic(dbConfig.user, dbConfig.password)
-);
+const driver = seraph(dbConfig);
 
 class Service {
   constructor() {
@@ -18,7 +15,7 @@ class Service {
   // find(params) {}
 
   get(id) {
-    const session = this.driver.session();
+    const db = this.driver;
 
     const cypher = 'MATCH (u:User)-[:HAS_TWITTER_ACCOUNT]->(t) WHERE ' +
       't.twitterId = {twitterId} ' +
@@ -28,21 +25,25 @@ class Service {
       twitterId: id
     };
 
-    return session
-      .run(cypher, cypherParams)
-      .then(r => {
-        const records = r.records.slice();
-        session.close();
-        return records;
-      })
-      .catch(e => {
-        session.close();
-        console.error(e);
+    return new Promise((resolve, reject) => {
+      db.query(cypher, cypherParams, (err, result) => {
+        if (err) return reject(err);
+
+        const user = result.reduce((prev, curr) => {
+          delete curr.u.id;
+          delete curr.t.id;
+          const u = Object.assign({}, curr.u);
+          const t = Object.assign({}, curr.t);
+          return Object.assign(prev, u, t);
+        }, {});
+
+        return resolve(user);
       });
+    });
   }
 
   create(data) {
-    const session = this.driver.session();
+    const db = this.driver;
 
     const cypher = 'CREATE (u:User { username: {username}, userId: {userId} ' +
       '}), (t:TwitterAccount { twitterId: {twitterId} }), ' +
@@ -55,17 +56,21 @@ class Service {
       userId: uuid.v4()
     };
 
-    return session
-      .run(cypher, cypherParams)
-      .then(r => {
-        const records = r.records.slice();
-        session.close();
-        return records;
-      })
-      .catch(e => {
-        session.close();
-        console.error(e);
+    return new Promise((resolve, reject) => {
+      db.query(cypher, cypherParams, (err, result) => {
+        if (err) return reject(err);
+
+        const user = result.reduce((prev, curr) => {
+          delete curr.u.id;
+          delete curr.t.id;
+          const u = Object.assign({}, curr.u);
+          const t = Object.assign({}, curr.t);
+          return Object.assign(prev, u, t);
+        }, {});
+
+        return resolve(user);
       });
+    });
   }
 
   // update(id, data) {}

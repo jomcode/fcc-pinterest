@@ -1,12 +1,15 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+const url = require('url');
+
+const neoUrl = url.parse(process.env.GRAPHENEDB_URL);
 
 module.exports = {
   appUrl: process.env.APP_URL || 'http://127.0.0.1:8080',
   port: process.env.PORT || 3030,
   neo4j: {
-    user: process.env.NEO4J_USER || 'neo4j',
-    password: process.env.NEO4J_PASSWORD || 'admin',
-    url: process.env.NEO4J_URL || 'bolt://localhost'
+    user: `${neoUrl.auth.split(':')[0]}`,
+    pass: `${neoUrl.auth.split(':')[1]}`,
+    server: `${neoUrl.protocol}//${neoUrl.host}`
   },
   redis: process.env.REDIS_URL || 'redis://localhost:6379',
   twitter: {

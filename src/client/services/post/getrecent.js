@@ -12,16 +12,6 @@ const getRecent = () =>
     if (response.status !== 200) throw new Error(response.statusText);
     return response.json();
   })
-  .then(json => {
-    // TODO format posts data to certain shape
-    // TODO move this to server
-    const posts = json.data.map(d => {
-      const p = Object.assign({}, d.post.properties);
-      const u = Object.assign({}, d.user.properties);
-      return Object.assign({}, p, u);
-    });
-
-    return posts;
-  });
+  .then(json => json.data.slice());
 
 export default getRecent;

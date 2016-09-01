@@ -19,16 +19,15 @@ const init = passport => {
     // to fetch whatever else from database
     tas.get(twitterId)
       .then(result => {
-        if (result.length < 1) {
+        if (!result.userId) {
           return tas.create({ twitterId, username })
             .then(r => {
-              const userId = r[0]._fields[0].properties.userId;
+              const userId = r.userId;
               cb(null, { userId, twitterId });
             });
         }
 
-        const userId = result[0]._fields[0].properties.userId;
-
+        const userId = result.userId;
         return cb(null, { userId, twitterId });
       })
       .catch(e => {

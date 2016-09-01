@@ -1,13 +1,10 @@
 'use strict';
-const neo4j = require('neo4j-driver').v1;
+const seraph = require('seraph');
 const uuid = require('node-uuid');
 
 const dbConfig = require('../../config').neo4j;
 
-const driver = neo4j.driver(
-  dbConfig.url,
-  neo4j.auth.basic(dbConfig.user, dbConfig.password)
-);
+const driver = seraph(dbConfig);
 
 class Service {
   constructor() {
@@ -17,52 +14,60 @@ class Service {
 
   // TODO clean this up
   find(params) {
-    const session = this.driver.session();
+    const db = this.driver;
 
     if (params && params.query) {
-      const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(posts) ' +
+      const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(post) ' +
       'WHERE u.userId = {userId} ' +
-      'RETURN u, posts';
+      'RETURN u, post';
 
       const cypherParams = {
         userId: params.query.userId
       };
 
-      return session
-      .run(cypher, cypherParams)
-      .then(r => {
-        const records = r.records.slice();
-        session.close();
-        return records;
-      })
-      .catch(e => {
-        console.error(e);
-        session.close();
+      return new Promise((resolve, reject) => {
+        db.query(cypher, cypherParams, (err, result) => {
+          if (err) return reject(err);
+
+          const posts = result.map(d => {
+            delete d.u.id;
+            delete d.post.id;
+            const user = Object.assign({}, d.u);
+            const post = Object.assign({}, d.post);
+            return Object.assign({}, user, post);
+          });
+
+          return resolve(posts);
+        });
       });
     }
 
-    const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(posts) ' +
-      'RETURN u, posts';
+    const cypher = 'MATCH (u:User)-[:HAS_POSTED]->(post) ' +
+      'RETURN u, post';
 
     const cypherParams = {};
 
-    return session
-      .run(cypher, cypherParams)
-      .then(r => {
-        const records = r.records.slice();
-        session.close();
-        return records;
-      })
-      .catch(e => {
-        console.error(e);
-        session.close();
+    return new Promise((resolve, reject) => {
+      db.query(cypher, cypherParams, (err, result) => {
+        if (err) return reject(err);
+
+        const posts = result.map(d => {
+          delete d.u.id;
+          delete d.post.id;
+          const user = Object.assign({}, d.u);
+          const post = Object.assign({}, d.post);
+          return Object.assign({}, user, post);
+        });
+
+        return resolve(posts);
       });
+    });
   }
 
   // get(id) {}
 
   create(data) {
-    const session = this.driver.session();
+    const db = this.driver;
 
     const cypher = 'MATCH (u:User) WHERE u.userId = {userId} ' +
       'CREATE (p:Post { postId: {postId}, title: {title}, ' +
@@ -76,24 +81,29 @@ class Service {
       imageUrl: data.imageUrl
     };
 
-    return session
-      .run(cypher, cypherParams)
-      .then(r => {
-        const records = r.records.slice();
-        session.close();
-        return records;
-      })
-      .catch(e => {
-        console.error(e);
-        session.close();
+    return new Promise((resolve, reject) => {
+      db.query(cypher, cypherParams, (err, result) => {
+        if (err) return reject(err);
+
+        const created = result.reduce((prev, curr) => {
+          delete curr.u.id;
+          delete curr.p.id;
+          const user = Object.assign({}, curr.u);
+          const post = Object.assign({}, curr.p);
+          return Object.assign(prev, user, post);
+        }, {});
+
+        return resolve(created);
       });
+    });
   }
 
   // update(id, data) {}
   // patch(id, data) {}
 
+  // TODO decide on what to return from resolved promise
   remove(id) {
-    const session = this.driver.session();
+    const db = this.driver;
 
     const cypher = 'MATCH (p:Post) WHERE p.postId = {postId} ' +
       'DETACH DELETE p ' +
@@ -103,17 +113,12 @@ class Service {
       postId: id
     };
 
-    return session
-      .run(cypher, cypherParams)
-      .then(r => {
-        const numDeleted = r.records.length;
-        session.close();
-        return numDeleted;
-      })
-      .catch(e => {
-        console.error(e);
-        session.close();
+    return new Promise((resolve, reject) => {
+      db.query(cypher, cypherParams, (err, result) => {
+        if (err) return reject(err);
+        return resolve(1);
       });
+    });
   }
 }
 
