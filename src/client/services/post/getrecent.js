@@ -14,6 +14,7 @@ const getRecent = () =>
   })
   .then(json => {
     // TODO format posts data to certain shape
+    // TODO move this to server
     const posts = json.data.map(d => {
       const p = Object.assign({}, d.post.properties);
       const u = Object.assign({}, d.user.properties);

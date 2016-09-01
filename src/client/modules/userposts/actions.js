@@ -8,10 +8,9 @@ const getUserPosts = (userId) => ({
   }
 });
 
-const getUserPostsSuccess = (user, posts) => ({
+const getUserPostsSuccess = (posts) => ({
   type: actionTypes.GET_USER_POSTS_SUCCESS,
   payload: {
-    user,
     posts
   }
 });
@@ -30,7 +29,7 @@ const getPostsByUser = userId => dispatch => {
 
   postService
     .getByUserId(userId)
-    .then(posts => dispatch(getUserPostsSuccess(posts.user, posts.posts)))
+    .then(posts => dispatch(getUserPostsSuccess(posts)))
     .catch(e => dispatch(getUserPostsFailure(e)));
 };
 

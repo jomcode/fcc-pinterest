@@ -14,9 +14,14 @@ const getByUserId = (userId) =>
   })
   .then(json => {
     // TODO figure out shape for data
-    const user = Object.assign({}, json.data.user);
-    const posts = json.data.posts.slice();
-    return { user, posts };
+    // TODO move this to server
+    const posts = json.data.posts.map(d => {
+      const p = Object.assign({}, d.properties);
+      const u = Object.assign({}, json.data.user.properties);
+      return Object.assign({}, p, u);
+    });
+
+    return posts;
   });
 
 export default getByUserId;

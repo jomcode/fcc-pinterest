@@ -19,7 +19,29 @@ class PostGrid extends Component {
     );
   }
 
-  _renderUserPosts() {}
+  _renderUserPosts() {
+    const { posts, isFetching, currentUser, removeHandler } = this.props;
+
+    return (
+      <div>
+        {
+          posts.map(p =>
+            <Post
+              key={p.postId}
+              postId={p.postId}
+              imageUrl={p.imageUrl}
+              title={p.title}
+              userId={p.userId}
+              username={p.username}
+              isOwner={currentUser.userId === p.userId}
+              removeHandler={removeHandler}
+              isFetching={isFetching}
+            />
+          )
+        }
+      </div>
+    );
+  }
 
   _renderRecentPosts() {
     const { posts, isFetching } = this.props;
@@ -44,11 +66,12 @@ class PostGrid extends Component {
   }
 
   render() {
-    const { isFetching } = this.props;
+    const { currentUser, isFetching } = this.props;
 
     if (isFetching) return this._renderLoading();
+    if (currentUser) return this._renderUserPosts();
 
-    return this._renderRecentPosts();
+    return currentUser ? this._renderUserPosts() : this._renderRecentPosts();
   }
 }
 

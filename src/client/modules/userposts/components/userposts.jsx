@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
+import postGrid from '../../postgrid';
+
 class UserPosts extends Component {
   constructor(props) {
     super(props);
 
-    this._renderLoading = this._renderLoading.bind(this);
-    this._renderDone = this._renderDone.bind(this);
     this._handleRemove = this._handleRemove.bind(this);
   }
 
@@ -24,17 +24,8 @@ class UserPosts extends Component {
     dispatch(removeUserPost(postId));
   }
 
-  _renderLoading() {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-
-  _renderDone() {
-    const { userPosts: { posts, isFetching }, userId } = this.props;
-
+  render() {
+    const { userPosts: { posts, isFetching }, currentUser } = this.props;
     if (posts.length < 1) {
       return (
         <div>
@@ -45,14 +36,14 @@ class UserPosts extends Component {
 
     return (
       <div>
-        <p># of Posts: {posts.length}</p>
+        <postGrid.component
+          posts={posts}
+          isFetching={isFetching}
+          currentUser={currentUser}
+          removeHandler={this._handleRemove}
+        />
       </div>
     );
-  }
-
-  render() {
-    const { userPosts: { isFetching } } = this.props;
-    return isFetching ? this._renderLoading() : this._renderDone();
   }
 }
 
