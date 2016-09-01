@@ -9,15 +9,17 @@ const getUserPosts = (userId) => ({
   }
 });
 
-const getUserPostsSuccess = (posts) => ({
+const getUserPostsSuccess = (user, posts) => ({
   type: actionTypes.GET_USER_POSTS_SUCCESS,
   payload: {
+    user,
     posts
   }
 });
 
 const getUserPostsFailure = (error) => ({
-  type: actionTypes.GET_USER_POSTS_FAILURE
+  type: actionTypes.GET_USER_POSTS_FAILURE,
+  error
 });
 
 const resetGetUserPosts = () => ({
@@ -26,6 +28,24 @@ const resetGetUserPosts = () => ({
 
 const getPostsByUser = userId => dispatch => {
   dispatch(getUserPosts(userId));
+
+  fetch(`${rootUrl}/posts/user/${userId}`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.status !== 200) throw new Error(response.statusText);
+    return response.json();
+  })
+  .then(json => {
+    const user = Object.assign({}, json.data.user);
+    const posts = json.data.posts.slice();
+    dispatch(getUserPostsSuccess(user, posts));
+  })
+  .catch(e => dispatch(getUserPostsFailure(e)));
 };
 
 export { getPostsByUser, resetGetUserPosts };
@@ -41,8 +61,9 @@ const removePostSuccess = (postId) => ({
   }
 });
 
-const removePostFailure = () => ({
-  type: actionTypes.REMOVE_POST_FAILURE
+const removePostFailure = (error) => ({
+  type: actionTypes.REMOVE_POST_FAILURE,
+  error
 });
 
 const resetRemovePost = () => ({

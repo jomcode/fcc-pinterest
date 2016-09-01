@@ -33,6 +33,9 @@ const createNewPost = (data) => dispatch => {
   })
   .then(response => {
     if (response.status !== 201) throw new Error(response.statusText);
+    return response.json();
+  })
+  .then(json => {
     dispatch(createPostSuccess());
   })
   .catch(e => dispatch(createPostFailure(e)));
