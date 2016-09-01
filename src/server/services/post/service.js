@@ -4,7 +4,10 @@ const uuid = require('node-uuid');
 
 const dbConfig = require('../../config').neo4j;
 
-const driver = neo4j.driver(dbConfig, neo4j.auth.basic('neo4j', 'admin'));
+const driver = neo4j.driver(
+  dbConfig.url,
+  neo4j.auth.basic(dbConfig.user, dbConfig.password)
+);
 
 class Service {
   constructor() {
