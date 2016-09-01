@@ -39,8 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/dist', express.static('dist'));
 
 const redisOptions = {
-  host: redisConfig.host,
-  port: redisConfig.port
+  url: redisConfig
 };
 
 // TODO move sessions to twitter auth endpoint only? would need jwt
