@@ -14,6 +14,7 @@ Server: express, passport, seraph (neo4j), mocha, chai, sinon, supertest
 Tools: webpack, babel, react-hot-loader, nodemon, istanbul, karma, eslint
 
 ## TODO
+- very much refactoring with cool ramda stuff
 - server tests
 - client tests
 - styling
