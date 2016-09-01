@@ -56,11 +56,12 @@ const init = service => {
     return service.remove(id)
       .then(result => {
         // if (result < 1)
-        res.status(204).json();
+        res.status(204).json({});
       })
       .catch(e => {
         console.error(e);
         console.error('ERROR STACK-->', e.stack);
+        console.trace('CONSOLE.TRACE-->');
         res.status(500).json({ error: 'Internal Server Error' });
       });
   });

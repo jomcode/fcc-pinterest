@@ -106,8 +106,7 @@ class Service {
     const db = this.driver;
 
     const cypher = 'MATCH (p:Post) WHERE p.postId = {postId} ' +
-      'DETACH DELETE p ' +
-      'RETURN p';
+      'DETACH DELETE p';
 
     const cypherParams = {
       postId: id
