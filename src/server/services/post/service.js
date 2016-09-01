@@ -116,7 +116,10 @@ class Service {
     return new Promise((resolve, reject) => {
       db.query(cypher, cypherParams, (err, result) => {
         if (err) return reject(err);
-        return resolve(1);
+
+        const meta = Object.assign({}, result.metadata);
+
+        return resolve(meta.deleted);
       });
     });
   }
