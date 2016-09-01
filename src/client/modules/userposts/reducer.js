@@ -44,7 +44,7 @@ const userPosts = (state = initialState, action) => {
     case actionTypes.REMOVE_POST_SUCCESS: {
       const { postId } = action.payload;
 
-      const updatedPosts = state.posts.filter(p => p.id !== postId);
+      const updatedPosts = state.posts.filter(p => p.postId !== postId);
 
       return Object.assign({}, state, {
         posts: updatedPosts,
