@@ -11,6 +11,7 @@ const RedisStore = require('connect-redis')(session);
 const configurePassport = require('./config/passport');
 const redisConfig = require('./config').redis;
 const sessionSecret = require('./config').sessionSecret;
+const appUrl = require('./config').appUrl;
 const userService = require('./services/user');
 const postService = require('./services/post');
 const twitterAccountService = require('./services/twitteraccount');
@@ -27,7 +28,7 @@ const logMode = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 if (process.env.NODE_ENV !== 'test') app.use(morgan(logMode));
 
 const corsOptions = {
-  origin: 'http://127.0.0.1:8080',
+  origin: appUrl,
   credentials: true
 };
 

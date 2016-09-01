@@ -1,11 +1,12 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 module.exports = {
+  appUrl: process.env.APP_URL || 'http://127.0.0.1:8080',
   port: process.env.PORT || 3030,
-  neo4j: process.env.DATABASE_URL || 'bolt://localhost',
+  neo4j: process.env.GRAPHENEDB_URL || 'bolt://localhost',
   redis: {
-    host: 'localhost',
-    port: 6379
+    host: process.env.REDIS_HOST || 'localhost',
+    port: process.env.REDIS_PORT || 6379,
   },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
