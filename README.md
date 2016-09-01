@@ -12,3 +12,5 @@ Client: react, react-router, redux, SASS, fetch
 Server: express, passport, seraph (neo4j)
 
 Tools: webpack, babel, react-hot-loader, nodemon, eslint
+
+Misc: authentication via Twitter's OAuth1 API
