@@ -18,6 +18,7 @@
     "test:server:watch": "better-npm-run test:server:watch",
     "test:client:sanity": "better-npm-run test:client:sanity",
     "test:server:sanity": "better-npm-run test:server:sanity",
+    "test:server:func": "mocha src/server/**/*.func.js",
     "tdd:client": "better-npm-run tdd:client",
     "tdd:client:hot": "better-npm-run tdd:client:hot",
     "tdd:server": "better-npm-run tdd:server",
