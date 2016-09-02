@@ -13,7 +13,7 @@ Tools: webpack, babel, react-hot-loader, nodemon, eslint
 Misc: authentication via Twitter's OAuth1 API
 
 ## TODO
-- refactor server to make isolated testing easier
+- finish server tests
 - client tests
 - cool refactoring stuff with ramda
 - styling and polish on client
