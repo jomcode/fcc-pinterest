@@ -1,7 +1,8 @@
 /* User Router Handlers */
+const getDb = require('../../../utilities').getDb;
 const Service = require('../service');
 
-const us = new Service();
+const us = new Service(getDb());
 
 const createUser = require('./createuser')(us);
 const getByUserId = require('./getbyuserid')(us);
