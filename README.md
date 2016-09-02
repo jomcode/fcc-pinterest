@@ -12,6 +12,12 @@ Tools: webpack, babel, react-hot-loader, nodemon, eslint
 
 Misc: authentication via Twitter's OAuth1 API
 
+## Tests
+**server**
+`npm run test:server` runs unit tests
+
+`npm run test:server:func` runs functional tests (requires redis and neo4j)
+
 ## TODO
 - finish server tests
 - client tests
