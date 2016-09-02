@@ -8,7 +8,6 @@ mockRes.prototype.status = function status(code) {
 };
 
 mockRes.prototype.json = sinon.spy();
-
 mockRes.prototype.redirect = sinon.spy();
 
 module.exports = mockRes;
