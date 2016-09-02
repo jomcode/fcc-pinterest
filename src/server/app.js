@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -15,9 +14,6 @@ const appUrl = require('./config').appUrl;
 const initializeServices = require('./services');
 
 const app = express();
-
-app.set('views', path.join(__dirname, 'services', 'twitterlogin', 'views'));
-app.set('view engine', 'ejs');
 
 const logMode = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
@@ -38,7 +34,6 @@ const redisOptions = {
   url: redisConfig
 };
 
-// TODO move sessions to twitter auth endpoint only? would need jwt
 app.use(session({
   store: new RedisStore(redisOptions),
   secret: sessionSecret,
