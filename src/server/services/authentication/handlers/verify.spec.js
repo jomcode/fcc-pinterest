@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const mockRes = require('../../../utilities').mockRes;
 const verify = require('./verify');
 
-describe('Authentication Service GET /auth/verify handler', () => {
+describe('Authentication Service GET /auth/verify #verify handler', () => {
   const fakeReq = {
     user: {
       userId: 'testing123',

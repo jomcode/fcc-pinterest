@@ -10,7 +10,7 @@ mockService.prototype.create = function create(data) {
   return Promise.resolve(result);
 };
 
-describe('Post Service POST /posts handler', () => {
+describe('Post Service POST /posts #createPost handler', () => {
   const fakeReq = {
     body: {
       data: {
