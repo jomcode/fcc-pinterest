@@ -28,7 +28,7 @@ describe('Authentication Service', () => {
     });
 
     describe('GET /auth/verify', () => {
-      it('responds properly to unauthenticated request', (done) => {
+      it('responds with status 401 and proper json data', (done) => {
         request(app)
           .get('/auth/verify')
           .expect('Content-Type', /json/)
@@ -37,7 +37,7 @@ describe('Authentication Service', () => {
           }, done);
       });
 
-      it('responds properly to authenticated request', (done) => {
+      it('responds with status 200 and proper json data', (done) => {
         agent
           .get('/auth/verify')
           .withCredentials()
