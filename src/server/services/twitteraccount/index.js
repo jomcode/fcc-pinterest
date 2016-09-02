@@ -1,4 +1,4 @@
-'use strict';
+/* Twitter Account Service */
 const twitterAccountService = require('./service');
 const router = require('./router');
 

@@ -1,6 +1,6 @@
 /* Post Service */
 const router = require('./router');
 
-module.exports = (app) => {
+module.exports = app => {
   app.use(router);
 };

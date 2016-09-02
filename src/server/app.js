@@ -13,8 +13,6 @@ const redisConfig = require('./config').redis;
 const sessionSecret = require('./config').sessionSecret;
 const appUrl = require('./config').appUrl;
 const userService = require('./services/user');
-const twitterAccountService = require('./services/twitteraccount');
-const twitterLoginService = require('./services/twitterlogin');
 const initializeServices = require('./services');
 
 const app = express();
@@ -71,9 +69,6 @@ app.get('/foo', (req, res) => {
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 
 app.use(userService);
-app.use(twitterAccountService);
-app.use(twitterLoginService(passport));
-
-initializeServices(app);
+initializeServices(app, passport);
 
 module.exports = app;

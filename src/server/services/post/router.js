@@ -12,5 +12,4 @@ router.get('/posts', handlers.getRecent);
 
 router.delete('/posts/:postId', isAuthenticated, handlers.removeByPostId);
 
-
 module.exports = router;
