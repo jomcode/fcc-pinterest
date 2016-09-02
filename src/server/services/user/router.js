@@ -1,18 +1,11 @@
-const express = require('express');
-
+const getRouter = require('../../utilities').getRouter;
 const isAuthenticated = require('../../middleware/isauthenticated');
 
 const init = service => {
-  const router = express.Router();
-
-  router.param('userId', (req, res, next, id) => {
-    next();
-  });
-
-  router.route('/users/:userId?')
+  const router = getRouter();
 
   // TODO handle if id is not found, should this be authenticated?
-  .get(isAuthenticated, (req, res) => {
+  router.get('/users/:userId', isAuthenticated, (req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.userId.slice();
 
@@ -26,13 +19,10 @@ const init = service => {
         console.error(e);
         res.status(500).json({ error: 'Internal Server Error' });
       });
-  })
-
-  // .patch((req, res) => {})
-  // .put((req, res) => {})
+  });
 
   // TODO validate user (body.data)
-  .post((req, res) => {
+  router.post('/users', (req, res) => {
     const data = Object.assign({}, req.body.data);
 
     return service.create(data)
@@ -46,10 +36,10 @@ const init = service => {
         console.error(e);
         res.status(500).json({ error: 'Internal Server Error' });
       });
-  })
+  });
 
   // TODO handle if id is not found, restrict to owner?
-  .delete(isAuthenticated, (req, res) => {
+  router.delete('/users/:userId', isAuthenticated, (req, res) => {
     if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
     const id = req.params.userId.slice();
 

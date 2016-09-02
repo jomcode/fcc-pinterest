@@ -1,9 +1,8 @@
-const express = require('express');
-
+const getRouter = require('../../utilities').getRouter;
 const isAuthenticated = require('../../middleware/isauthenticated');
 
 const init = service => {
-  const router = express.Router();
+  const router = getRouter();
 
   router.post('/posts', isAuthenticated, (req, res) => {
     const data = Object.assign(req.body.data);

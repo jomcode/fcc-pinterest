@@ -1,9 +1,8 @@
-const express = require('express');
-
+const getRouter = require('../../utilities').getRouter;
 const isAuthenticated = require('../../middleware/isauthenticated');
 
 const init = passport => {
-  const router = express.Router();
+  const router = getRouter();
 
   router.get('/home', (req, res) => {
     res.render('home', { user: req.user });
