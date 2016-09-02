@@ -1,9 +1,9 @@
 const getRouter = require('../../utilities').getRouter;
 const isAuthenticated = require('../../middleware/isauthenticated');
-const handleVerify = require('./handlers').handleVerify;
+const handlers = require('./handlers');
 
 const router = getRouter();
 
-router.get('/auth/verify', isAuthenticated, handleVerify);
+router.get('/auth/verify', isAuthenticated, handlers.verify);
 
 module.exports = router;

@@ -1,2 +1,6 @@
 /* Authentication Router Handlers */
-module.exports.handleVerify = require('./verify');
+const verify = require('./verify');
+
+module.exports = {
+  verify
+};
