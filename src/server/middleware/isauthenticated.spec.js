@@ -1,16 +1,8 @@
 const sinon = require('sinon');
 const expect = require('chai').expect;
 
+const mockRes = require('../utilities').mockRes;
 const isAuthenticated = require('./isauthenticated');
-
-function mockRes() {}
-
-mockRes.prototype.status = function status(code) {
-  this.status = code;
-  return this;
-};
-
-mockRes.prototype.json = sinon.spy();
 
 describe('isAuthenticated middleware', () => {
   const authenticated = { user: {} };

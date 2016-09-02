@@ -1,3 +1,3 @@
-const handler = (req, res) => res.redirect('/');
+const loginCallback = (req, res) => res.redirect('/');
 
-module.exports = handler;
+module.exports = loginCallback;
