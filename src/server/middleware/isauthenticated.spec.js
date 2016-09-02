@@ -23,6 +23,7 @@ describe('isAuthenticated middleware', () => {
 
     isAuthenticated(authenticated, res, nextSpy);
     expect(nextSpy.calledOnce).to.equal(true);
+
     isAuthenticated(unauthenticated, res, nextSpy);
     expect(res.status).to.equal(401);
     expect(nextSpy.calledOnce).to.equal(true);
