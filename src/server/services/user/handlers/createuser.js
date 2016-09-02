@@ -5,9 +5,7 @@ const handler = (service, req, res) => {
 
   return service.create(data)
     .then(result => {
-      const formatted = result.reduce((prev, curr) => curr, {}); // array to obj
-      delete formatted._fields[0].properties.password; // remove password
-      res.status(201).json({ data: formatted });
+      res.status(201).json({ data: result });
     })
     .catch(e => {
       console.error(e);
