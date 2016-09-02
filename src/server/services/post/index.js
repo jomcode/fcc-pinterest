@@ -1,5 +1,6 @@
-'use strict';
-const postService = require('./service');
+/* Post Service */
 const router = require('./router');
 
-module.exports = router(new postService());
+module.exports = (app) => {
+  app.use(router);
+};
