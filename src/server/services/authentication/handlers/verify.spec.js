@@ -1,16 +1,7 @@
-const sinon = require('sinon');
 const expect = require('chai').expect;
 
+const mockRes = require('../../../utilities').mockRes;
 const verify = require('./verify');
-
-function mockRes() {}
-
-mockRes.prototype.status = function status(code) {
-  this.status = code;
-  return this;
-};
-
-mockRes.prototype.json = sinon.spy();
 
 describe('Authentication Service GET /auth/verify handler', () => {
   const fakeReq = {
@@ -20,7 +11,7 @@ describe('Authentication Service GET /auth/verify handler', () => {
     }
   };
 
-  it('is called with the proper status and json arg', () => {
+  it('calls response with the proper status and json arg', () => {
     const expectedArg = {
       data: {
         userId: 'testing123',

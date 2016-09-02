@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint",
+    "mocha": "mocha",
     "start": "node src/server/index.js",
     "dev:server": "better-npm-run dev:server",
     "dev:client": "better-npm-run dev:client",
