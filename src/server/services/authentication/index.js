@@ -1,3 +1,6 @@
+/* Authentication Service */
 const router = require('./router');
 
-module.exports = router();
+module.exports = (app) => {
+  app.use(router);
+};

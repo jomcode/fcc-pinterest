@@ -16,7 +16,7 @@ const userService = require('./services/user');
 const postService = require('./services/post');
 const twitterAccountService = require('./services/twitteraccount');
 const twitterLoginService = require('./services/twitterlogin');
-const authenticationService = require('./services/authentication');
+const initializeServices = require('./services');
 
 const app = express();
 
@@ -75,6 +75,7 @@ app.use(userService);
 app.use(postService);
 app.use(twitterAccountService);
 app.use(twitterLoginService(passport));
-app.use(authenticationService);
+
+initializeServices(app);
 
 module.exports = app;

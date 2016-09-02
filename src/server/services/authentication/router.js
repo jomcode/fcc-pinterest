@@ -1,16 +1,9 @@
-const express = require('express');
-
+const getRouter = require('../../utilities').getRouter;
 const isAuthenticated = require('../../middleware/isauthenticated');
+const handleVerify = require('./handlers').handleVerify;
 
-const init = service => {
-  const router = express.Router();
+const router = getRouter();
 
-  router.get('/auth/verify', isAuthenticated, (req, res) => {
-    const user = Object.assign({}, req.user, { isAuthenticated: true });
-    return res.status(200).json({ data: user });
-  });
+router.get('/auth/verify', isAuthenticated, handleVerify);
 
-  return router;
-};
-
-module.exports = init;
+module.exports = router;
