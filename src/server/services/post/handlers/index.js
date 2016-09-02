@@ -1,7 +1,8 @@
 /* Post Router Handlers */
+const getDb = require('../../../utilities').getDb;
 const Service = require('../service');
 
-const ps = new Service();
+const ps = new Service(getDb());
 
 const createPost = require('./createpost')(ps);
 const getByUserId = require('./getbyuserid')(ps);

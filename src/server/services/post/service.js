@@ -1,14 +1,9 @@
 'use strict';
-const seraph = require('seraph');
 const uuid = require('node-uuid');
 
-const dbConfig = require('../../config').neo4j;
-
-const driver = seraph(dbConfig);
-
 class Service {
-  constructor() {
-    this.driver = driver;
+  constructor(db) {
+    this.driver = db;
     this.uuid = uuid;
   }
 
