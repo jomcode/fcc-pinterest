@@ -1,60 +1,13 @@
 const getRouter = require('../../utilities').getRouter;
 const isAuthenticated = require('../../middleware/isauthenticated');
+const handlers = require('./handlers');
 
-const init = service => {
-  const router = getRouter();
+const router = getRouter();
 
-  // TODO handle if id is not found, should this be authenticated?
-  router.get('/users/:userId', isAuthenticated, (req, res) => {
-    if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
-    const id = req.params.userId.slice();
+router.get('/users/:userId', isAuthenticated, handlers.getByUserId);
 
-    return service.get(id)
-      .then(result => {
-        const formatted = result.reduce((prev, curr) => curr, {}); // array to obj
-        delete formatted._fields[0].properties.password; // remove password
-        res.status(200).json({ data: result });
-      })
-      .catch(e => {
-        console.error(e);
-        res.status(500).json({ error: 'Internal Server Error' });
-      });
-  });
+router.post('/users', handlers.createUser);
 
-  // TODO validate user (body.data)
-  router.post('/users', (req, res) => {
-    const data = Object.assign({}, req.body.data);
+router.delete('/users/:userId', isAuthenticated, handlers.removeByUserId);
 
-    return service.create(data)
-      .then(result => {
-        // const formatted = Object.assign({}, result[0]);
-        const formatted = result.reduce((prev, curr) => curr, {}); // array to obj
-        delete formatted._fields[0].properties.password; // remove password
-        res.status(201).json({ data: formatted });
-      })
-      .catch(e => {
-        console.error(e);
-        res.status(500).json({ error: 'Internal Server Error' });
-      });
-  });
-
-  // TODO handle if id is not found, restrict to owner?
-  router.delete('/users/:userId', isAuthenticated, (req, res) => {
-    if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
-    const id = req.params.userId.slice();
-
-    return service.remove(id)
-      .then(result => {
-        // if (result < 1)
-        res.status(204).json();
-      })
-      .catch(e => {
-        console.error(e);
-        res.status(500).json({ error: 'Internal Server Error' });
-      });
-  });
-
-  return router;
-};
-
-module.exports = init;
+module.exports = router;

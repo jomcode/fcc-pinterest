@@ -12,7 +12,6 @@ const configurePassport = require('./config/passport');
 const redisConfig = require('./config').redis;
 const sessionSecret = require('./config').sessionSecret;
 const appUrl = require('./config').appUrl;
-const userService = require('./services/user');
 const initializeServices = require('./services');
 
 const app = express();
@@ -68,7 +67,6 @@ app.get('/foo', (req, res) => {
 
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 
-app.use(userService);
 initializeServices(app, passport);
 
 module.exports = app;
