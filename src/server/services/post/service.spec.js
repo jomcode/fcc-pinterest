@@ -9,11 +9,11 @@ describe('Post Service database service', () => {
     fakeDb.prototype.query = function query(cypher, params, cb) {
       const fakeResult = [
         {
-          u: { id: 1, userId: 'testing123' },
+          u: { id: 1, userId: params.userId || 'testid' },
           post: { id: 1, postId: 'testing456' }
         },
         {
-          u: { id: 2, userId: 'testing123' },
+          u: { id: 2, userId: params.userId || 'testid' },
           post: { id: 2, postId: 'testing456' }
         }
       ];
@@ -40,15 +40,13 @@ describe('Post Service database service', () => {
     });
 
     it('returns expected data when given no params', (done) => {
-      const expectedResult = {
-        userId: 'testing123',
-        postId: 'testing456'
-      };
-
       service
         .find()
         .then(result => {
-          result.forEach(r => expect(r).to.deep.equal(expectedResult));
+          result.forEach(r => {
+            expect(r).to.have.property('userId', 'testid');
+            expect(r).to.have.property('postId', 'testing456');
+          });
           done();
         });
     });
@@ -60,8 +58,8 @@ describe('Post Service database service', () => {
     fakeDb.prototype.query = function query(cypher, params, cb) {
       const fakeResult = [
         {
-          u: { id: 1, userId: 'testing123' },
-          p: { id: 1, postId: params.postId, title: 'test title' }
+          u: { id: 1, userId: params.userId },
+          p: { id: 1, postId: params.postId, title: params.title }
         }
       ];
 
