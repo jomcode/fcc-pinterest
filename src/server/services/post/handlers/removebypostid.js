@@ -7,7 +7,7 @@ const handler = (service, req, res) => {
   return service.remove(id)
     .then(result => {
       // if (result < 1)
-      res.status(204).json({});
+      res.status(204).json({ data: result });
     })
     .catch(e => {
       console.error(e);
