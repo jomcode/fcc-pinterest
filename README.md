@@ -1,7 +1,4 @@
 #Pinterestish App
-
-[Details and Requirements](https://www.freecodecamp.com/challenges/build-a-pinterest-clone)
-
 [Heroku Link](https://jomcode-fcc-pinterest.herokuapp.com)
 
 ## Info
@@ -14,3 +11,9 @@ Server: express, passport, seraph (neo4j)
 Tools: webpack, babel, react-hot-loader, nodemon, eslint
 
 Misc: authentication via Twitter's OAuth1 API
+
+## TODO
+- cool refactoring stuff with ramda
+- server tests
+- client tests
+- styling and polish on client
