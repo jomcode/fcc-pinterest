@@ -134,7 +134,11 @@ describe('Post Service', () => {
     });
 
     describe('DELETE /posts/:postId', () => {
-      it('responds with status 204');
+      it('responds with status 204', (done) => {
+        agent
+          .del(`/posts/${testPostId}`)
+          .expect(204, done);
+      });
     });
   });
 });
