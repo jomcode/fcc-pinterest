@@ -1,5 +1,6 @@
 const R = require('ramda');
 
+// TODO restrict to certain userId (owner)
 const handler = (service, req, res) => {
   if (!req.params.userId) return res.status(400).json({ error: 'Bad Request' });
   const id = req.params.userId.slice();

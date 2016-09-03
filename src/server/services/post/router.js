@@ -6,9 +6,9 @@ const router = getRouter();
 
 router.post('/posts', isAuthenticated, handlers.createPost);
 
-router.get('/posts/user/:userId', handlers.getByUserId);
-
 router.get('/posts', handlers.getRecent);
+
+router.get('/posts/user/:userId', handlers.getByUserId);
 
 router.delete('/posts/:postId', isAuthenticated, handlers.removeByPostId);
 

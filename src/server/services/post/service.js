@@ -82,6 +82,7 @@ class Service {
 
         const created = result.reduce((prev, curr) => {
           delete curr.u.id;
+          delete curr.u.password;
           delete curr.p.id;
           const user = Object.assign({}, curr.u);
           const post = Object.assign({}, curr.p);
