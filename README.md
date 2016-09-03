@@ -29,7 +29,8 @@ Misc: authentication via Twitter's OAuth1 API
 
 ## TODO
 - client tests
+- implement codeceptjs acceptance testing with webdriverio
+- dockerize server functional test environment
+- dockerize acceptance test environment
 - cool refactoring stuff with ramda
 - styling and polish on client
-- dockerize server functional test environment
-- dockerize acceptance tests (client/server)
