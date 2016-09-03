@@ -10,7 +10,7 @@ mockService.prototype.get = function get(id) {
   return Promise.resolve(result);
 };
 
-describe('GET /users/:userId #getByUserId handler', () => {
+describe('User Service GET /users/:userId #getByUserId handler', () => {
   const fakeReq = {
     params: {
       userId: 'testing123'

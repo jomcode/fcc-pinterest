@@ -9,7 +9,7 @@ mockService.prototype.remove = function remove(id) {
   return Promise.resolve(true);
 };
 
-describe('DELETE /users/:userId #removeByUserId handler', () => {
+describe('User Service DELETE /users/:userId #removeByUserId handler', () => {
   const fakeReq = {
     params: {
       userId: 'testing123'
