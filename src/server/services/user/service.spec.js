@@ -40,7 +40,11 @@ describe('User Service database service', () => {
     fakeDb.prototype.query = function query(cypher, params, cb) {
       const fakeResult = [
         {
-          u: { id: 1, userId: params.userId, password: params.password }
+          id: 1,
+          userId: params.userId,
+          password: params.password,
+          username: params.username,
+          email: params.email
         }
       ];
 
@@ -52,7 +56,9 @@ describe('User Service database service', () => {
 
     it('returns expected result', (done) => {
       const fakeUser = {
-        password: 'testpassword'
+        password: 'testpassword',
+        username: 'testuser',
+        email: 'test@test.com'
       };
 
       service
