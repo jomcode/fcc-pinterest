@@ -22,7 +22,14 @@ class Service {
       db.query(cypher, cypherParams, (err, result) => {
         if (err) return reject(err);
 
-        return resolve();
+        const user = result.reduce((prev, curr) => {
+          delete curr.u.id;
+          delete curr.u.password;
+          const record = Object.assign({}, curr.u);
+          return Object.assign(prev, record);
+        }, {});
+
+        return resolve(user);
       });
     });
   }
@@ -30,9 +37,9 @@ class Service {
   create(data) {
     const db = this.driver;
 
-    const cypher = 'CREATE (n:User {username: {username}, ' +
+    const cypher = 'CREATE (u:User {username: {username}, ' +
       'email: {email}, password: {password}, userId: {userId} ' +
-      '}) RETURN n';
+      '}) RETURN u';
 
     const cypherParams = {
       username: data.username,
@@ -45,7 +52,14 @@ class Service {
       db.query(cypher, cypherParams, (err, result) => {
         if (err) return reject(err);
 
-        return resolve();
+        const created = result.reduce((prev, curr) => {
+          delete curr.u.id;
+          delete curr.u.password;
+          const user = Object.assign({}, curr.u);
+          return Object.assign(prev, user);
+        }, {});
+
+        return resolve(created);
       });
     });
   }
@@ -65,7 +79,9 @@ class Service {
       db.query(cypher, cypherParams, (err, result) => {
         if (err) return reject(err);
 
-        return resolve();
+        const meta = Object.assign({}, result.metadata);
+
+        return resolve(meta.deleted);
       });
     });
   }

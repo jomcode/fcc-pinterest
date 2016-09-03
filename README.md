@@ -12,6 +12,14 @@ Tools: webpack, babel, react-hot-loader, nodemon, eslint
 
 Misc: authentication via Twitter's OAuth1 API
 
+## Config / Environment Variables
+- **TWITTER_CONSUMER_KEY** twitter sign in consumer key
+- **TWITTER_CONSUMER_SECRET** twitter sign in consumer secret
+- **TWITTER_CALLBACK_URL** twitter sign in callback url
+- **SESSION_SECRET** session secret
+- **SALT** hash salt
+- **GRAPHENEDB_URL** neo4j url ex 'http://user:pass@host:port'
+
 ## Tests
 **server**
 
@@ -24,3 +32,4 @@ Misc: authentication via Twitter's OAuth1 API
 - client tests
 - cool refactoring stuff with ramda
 - styling and polish on client
+- docker
