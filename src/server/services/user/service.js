@@ -53,9 +53,9 @@ class Service {
         if (err) return reject(err);
 
         const created = result.reduce((prev, curr) => {
-          delete curr.u.id;
-          delete curr.u.password;
-          const user = Object.assign({}, curr.u);
+          delete curr.id;
+          delete curr.password;
+          const user = Object.assign({}, curr);
           return Object.assign(prev, user);
         }, {});
 

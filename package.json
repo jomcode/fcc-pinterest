@@ -19,6 +19,7 @@
     "test:client:sanity": "better-npm-run test:client:sanity",
     "test:server:sanity": "better-npm-run test:server:sanity",
     "test:server:func": "better-npm-run test:server:func",
+    "test:server:func:watch": "better-npm-run test:server:func:watch",
     "tdd:client": "better-npm-run tdd:client",
     "tdd:client:hot": "better-npm-run tdd:client:hot",
     "tdd:server": "better-npm-run tdd:server",
@@ -96,6 +97,12 @@
     },
     "test:server:func": {
       "command": "mocha src/server/**/*.func.js",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    "test:server:func:watch": {
+      "command": "mocha -w src/server/**/*.func.js",
       "env": {
         "NODE_ENV": "test"
       }
