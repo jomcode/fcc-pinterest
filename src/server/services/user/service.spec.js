@@ -73,12 +73,7 @@ describe('User Service database service', () => {
     function fakeDb() {}
 
     fakeDb.prototype.query = function query(cypher, params, cb) {
-      const fakeResult = {
-        metadata: {
-          deleted: true
-        }
-      };
-
+      const fakeResult = true;
       cb(null, fakeResult);
     };
 

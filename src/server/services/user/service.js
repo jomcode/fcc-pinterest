@@ -79,9 +79,7 @@ class Service {
       db.query(cypher, cypherParams, (err, result) => {
         if (err) return reject(err);
 
-        const meta = Object.assign({}, result.metadata);
-
-        return resolve(meta.deleted);
+        return resolve(true);
       });
     });
   }

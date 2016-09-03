@@ -7,7 +7,7 @@ const app = require('../../app');
 describe('User Service', () => {
   describe('router', () => {
     const agent = request.agent(app); // for session based auth
-    let testUserId;
+    let testUserId; // set in POST /users, deleted in DELETE /users/:userId
 
     before((done) => {
       // put authentication credentials into session for testing
@@ -78,7 +78,11 @@ describe('User Service', () => {
     });
 
     describe('DELETE /users/:userId', () => {
-      it('responds with status 204');
+      it('responds with status 204', (done) => {
+        agent
+          .del(`/users/${testUserId}`)
+          .expect(204, done);
+      });
     });
   });
 });
