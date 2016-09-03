@@ -1,3 +1,4 @@
+'use strict';
 const expect = require('chai').expect;
 const request = require('supertest');
 
@@ -6,6 +7,7 @@ const app = require('../../app');
 describe('User Service', () => {
   describe('router', () => {
     const agent = request.agent(app); // for session based auth
+    let testUserId;
 
     before((done) => {
       // put authentication credentials into session for testing
@@ -42,19 +44,37 @@ describe('User Service', () => {
           .post('/users')
           .send(fakeData)
           .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
           .end((err, res) => {
             const user = Object.assign({}, res.body.data);
             expect(user).to.not.have.property('password');
             expect(user).to.have.property('userId');
             expect(user).to.have.property('username', 'testuser');
             expect(user).to.have.property('email', 'test@test.com');
+            testUserId = user.userId;
             done();
           });
       });
     });
 
     describe('GET /users/:userId', () => {
-      it('responds with status 200 and proper json data');
+      it('responds with status 200 and proper json data', (done) => {
+        agent
+          .get(`/users/${testUserId}`)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            const user = Object.assign({}, res.body.data);
+            expect(user).to.not.have.property('password');
+            expect(user).to.not.have.property('id');
+            expect(user).to.have.property('userId', testUserId);
+            expect(user).to.have.property('username', 'testuser');
+            expect(user).to.have.property('email', 'test@test.com');
+            done();
+          });
+      });
     });
 
     describe('DELETE /users/:userId', () => {

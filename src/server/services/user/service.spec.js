@@ -8,9 +8,7 @@ describe('User Service database service', () => {
 
     fakeDb.prototype.query = function query(cypher, params, cb) {
       const fakeResult = [
-        {
-          u: { id: 1, userId: params.userId, password: 'testpassword' }
-        }
+        { id: 1, userId: params.userId, password: 'testpassword' }
       ];
 
       cb(null, fakeResult);
