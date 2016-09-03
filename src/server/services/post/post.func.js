@@ -37,6 +37,10 @@ describe('Post Service', () => {
         .end((req, res) => done());
     });
 
+    after((done) => {
+      done();
+    });
+
     describe('POST /posts', () => {
       // create user to make posts with
       before((done) => {
@@ -68,6 +72,7 @@ describe('Post Service', () => {
           .end((err, res) => {
             testPostId = res.body.data.postId.slice();
             const post = Object.assign({}, res.body.data);
+
             expect(post).to.not.have.property('password');
             expect(post).to.not.have.property('id');
             expect(post).to.have.property('postId');
@@ -102,7 +107,30 @@ describe('Post Service', () => {
     });
 
     describe('GET /posts', () => {
-      it('responds with status 200 and proper json data');
+      it('responds with status 200 and proper json data', (done) => {
+        agent
+          .get('/posts')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .end((err, res) => {
+            expect(Array.isArray(res.body.data)).to.equal(true);
+
+            const posts = res.body.data.slice();
+
+            expect(posts.length > 0).to.equal(true);
+
+            posts.forEach(p => {
+              expect(p).to.not.have.property('id');
+              expect(p).to.not.have.property('password');
+              expect(p).to.have.property('postId');
+              expect(p).to.have.property('userId');
+              expect(p).to.have.property('title');
+              expect(p).to.have.property('imageUrl');
+            });
+
+            done();
+          });
+      });
     });
 
     describe('DELETE /posts/:postId', () => {
