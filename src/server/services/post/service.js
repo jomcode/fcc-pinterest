@@ -26,6 +26,7 @@ class Service {
 
           const posts = result.map(d => {
             delete d.u.id;
+            delete d.u.password;
             delete d.post.id;
             const user = Object.assign({}, d.u);
             const post = Object.assign({}, d.post);

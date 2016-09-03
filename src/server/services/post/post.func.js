@@ -8,6 +8,7 @@ describe('Post Service', () => {
   describe('router', () => {
     const agent = request.agent(app); // for session based auth
     let testUserId; // set in POST /posts before hook
+    let testPostId; // set in POST /posts .end handler
 
     const testUser = {
       username: 'testuser',
@@ -65,6 +66,7 @@ describe('Post Service', () => {
           .expect('Content-Type', /json/)
           .expect(201)
           .end((err, res) => {
+            testPostId = res.body.data.postId.slice();
             const post = Object.assign({}, res.body.data);
             expect(post).to.not.have.property('password');
             expect(post).to.not.have.property('id');
@@ -79,7 +81,24 @@ describe('Post Service', () => {
     });
 
     describe('GET /posts/user/:userId', () => {
-      it('responds with status 200 and proper json data');
+      it('responds with status 200 and proper json data', (done) => {
+        agent
+          .get(`/posts/user/${testUserId}`)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200, {
+            data: [
+              {
+                postId: testPostId,
+                userId: testUserId,
+                email: 'test@test.com',
+                username: 'testuser',
+                title: 'test title',
+                imageUrl: 'http://www.test.com/test.jpg'
+              }
+            ]
+          }, done);
+      });
     });
 
     describe('GET /posts', () => {
