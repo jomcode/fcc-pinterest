@@ -56,10 +56,6 @@ app.get('/', (req, res) => {
   return res.redirect('/dist');
 });
 
-app.get('/foo', (req, res) => {
-  res.status(200).json({ foo: 'bar' });
-});
-
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 
 initializeServices(app, passport);

@@ -23,7 +23,103 @@ Misc: session based authentication via Twitter's OAuth1 API
 - **GRAPHENEDB_URL** neo4j url ex 'http://user:pass@host:port'
 
 ### Endpoints (JSON API)
-TODO
+*response body*
+
+(* = authenticated endpoint)
+
+#### Unauthorized Request
+status 401
+```
+{
+  error: 'Unauthorized'
+}
+```
+
+#### GET /auth/verify *
+status 200
+```
+{
+  data: {
+    ...user,
+    isAuthenticated: true
+  }
+}
+```
+
+#### POST /posts *
+status 201
+```
+{
+  data: {
+    ...post
+  }
+}
+```
+
+#### GET /posts
+status 200
+```
+{
+  data: [
+    ...posts
+  ]
+}
+```
+
+#### GET /posts/user/:userId
+status 200
+```
+{
+  data: [
+    ...posts
+  ]
+}
+```
+
+#### DELETE /posts/:postId *
+status 204
+```
+No content
+```
+
+#### GET /login/twitter
+Twitter sign in redirect
+
+#### GET /logout/twitter *
+status 200
+```
+{
+  data: {
+    isAuthenticated: false
+  }
+}
+```
+
+#### POST /users
+status 201
+```
+{
+  data: {
+    ...user
+  }
+}
+```
+
+#### GET /users/:userId *
+status 200
+```
+{
+  data: {
+    ...user
+  }
+}
+```
+
+#### DELETE /users/:userId *
+status 204
+```
+No content
+```
 
 ## Tests
 **server**
@@ -41,4 +137,3 @@ TODO
 - move removepost to its own module on client?
 - cool refactoring stuff with ramda
 - styling and polish on client
-- add info to readme about endpoints and how things work
