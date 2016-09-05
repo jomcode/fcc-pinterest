@@ -11,24 +11,24 @@ describe('currentUser module action creators', () => {
         userId: 'testid'
       };
 
-      const expectedResult = {
+      const expectedAction = {
         type: actionTypes.POPULATE_CURRENT_USER,
         payload: {
           currentUser: fakeUser
         }
       };
 
-      expect(actions.populateCurrentUser(fakeUser)).to.deep.equal(expectedResult);
+      expect(actions.populateCurrentUser(fakeUser)).to.deep.equal(expectedAction);
     });
   });
 
   describe('#resetCurrentUser', () => {
-    it('creates an action to reset the current user', () => {
-      const expectedResult = {
+    it('creates an action to reset currentUser to initial state', () => {
+      const expectedAction = {
         type: actionTypes.RESET_CURRENT_USER
       };
 
-      expect(actions.resetCurrentUser()).to.deep.equal(expectedResult);
+      expect(actions.resetCurrentUser()).to.deep.equal(expectedAction);
     });
   });
 });

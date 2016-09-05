@@ -15,7 +15,7 @@ const initialState = {
   isFetching: false
 };
 
-describe('auth module action creators (async)', () => {
+describe('auth module action creators', () => {
   describe('#loginUser thunk', () => {
     afterEach(() => {
       fetchMock.restore();

@@ -10,6 +10,22 @@ describe('currentUser module reducer', () => {
     username: 'testuser'
   };
 
+  it('should return initial state', () => {
+    const fakeAction = {
+      type: 'FAKE'
+    };
+
+    const expectedState = {
+      userId: null,
+      twitterId: null,
+      username: null
+    };
+
+    const state = reducer(undefined, fakeAction);
+
+    expect(state).to.deep.equal(expectedState);
+  });
+
   it('should handle POPULATE_CURRENT_USER', () => {
     const fakeAction = {
       type: actionTypes.POPULATE_CURRENT_USER,

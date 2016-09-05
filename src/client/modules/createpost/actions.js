@@ -21,7 +21,8 @@ const resetCreatePost = () => ({
 const createNewPost = (data) => dispatch => {
   dispatch(createPost());
 
-  postService
+  // TODO move error logic to service
+  return postService
     .create(data)
     .then(response => {
       if (response.status !== 201) throw new Error(response.statusText);
@@ -30,7 +31,7 @@ const createNewPost = (data) => dispatch => {
     .then(json => {
       dispatch(createPostSuccess());
     })
-    .catch(e => dispatch(createPostFailure(e)));
+    .catch(e => dispatch(createPostFailure(e.message)));
 };
 
 export { createNewPost, resetCreatePost };
