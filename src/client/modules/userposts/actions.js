@@ -20,6 +20,7 @@ const getUserPostsFailure = (error) => ({
   error
 });
 
+// TODO is this needed?
 const resetGetUserPosts = () => ({
   type: actionTypes.RESET_GET_USER_POSTS
 });
@@ -27,10 +28,10 @@ const resetGetUserPosts = () => ({
 const getPostsByUser = userId => dispatch => {
   dispatch(getUserPosts(userId));
 
-  postService
+  return postService
     .getByUserId(userId)
     .then(posts => dispatch(getUserPostsSuccess(posts)))
-    .catch(e => dispatch(getUserPostsFailure(e)));
+    .catch(e => dispatch(getUserPostsFailure(e.message)));
 };
 
 export { getPostsByUser, resetGetUserPosts };
@@ -51,6 +52,7 @@ const removePostFailure = (error) => ({
   error
 });
 
+// TODO is this needed?
 const resetRemovePost = () => ({
   type: actionTypes.RESET_REMOVE_POST
 });
@@ -58,10 +60,10 @@ const resetRemovePost = () => ({
 const removeUserPost = postId => dispatch => {
   dispatch(removePost());
 
-  postService
+  return postService
     .removeByPostId(postId)
     .then(result => dispatch(removePostSuccess(postId)))
-    .catch(e => dispatch(removePostFailure(e)));
+    .catch(e => dispatch(removePostFailure(e.message)));
 };
 
 export { removeUserPost, resetRemovePost };
