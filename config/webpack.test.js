@@ -27,6 +27,13 @@ module.exports = {
       {
         test: /\.json$/,
         loaders: ['json']
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!postcss!sass',
+        include: [
+          path.join(helpers.sourceDir)
+        ]
       }
     ],
     postLoaders: []

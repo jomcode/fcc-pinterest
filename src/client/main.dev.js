@@ -11,6 +11,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import './main.scss';
 import root from './modules/root';
 import configureStore from './config/configurestore';
+import routes from './config/routes';
 /* eslint-enable */
 
 const store = configureStore();
@@ -19,7 +20,7 @@ const rootElement = document.getElementById('root');
 
 render(
   <HotContainer>
-    <root.component store={store} history={history} />
+    <root.component store={store} history={history} routes={routes} />
   </HotContainer>,
   rootElement
 );
@@ -30,7 +31,7 @@ if (module.hot) {
 
     render(
       <HotContainer>
-        <NextRoot store={store} history={history} />
+        <NextRoot store={store} history={history} routes={routes} />
       </HotContainer>,
       rootElement
     );
