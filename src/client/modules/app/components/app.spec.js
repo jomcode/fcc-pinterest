@@ -61,7 +61,7 @@ describe('<App /> component', () => {
 
   it('renders div with .app-content class', () => {
     const props = setup().getProps().authenticated;
-    const wrapper = setup().getWrapper(props).shallow.render();
+    const wrapper = setup().getWrapper(props).shallow.shallow();
 
     expect(wrapper.find('.app-content')).to.have.length(1);
   });

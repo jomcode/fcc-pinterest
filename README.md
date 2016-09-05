@@ -33,11 +33,12 @@ TODO
 `npm run test:server:func` runs functional tests (requires redis and neo4j)
 
 ## TODO
-- move removepost to its own module on client?
-- client tests
+- finish client tests
+- database seeding utility scripts for cli
 - implement codeceptjs acceptance testing with webdriverio
 - dockerize server functional test environment
 - dockerize acceptance test environment
+- move removepost to its own module on client?
 - cool refactoring stuff with ramda
 - styling and polish on client
 - add info to readme about endpoints and how things work
