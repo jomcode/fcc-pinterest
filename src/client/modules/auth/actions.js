@@ -22,10 +22,10 @@ const loginFailure = (error) => ({
 const loginUser = () => dispatch => {
   dispatch(login());
 
-  authService
+  return authService
     .verify()
     .then(user => dispatch(loginSuccess(user)))
-    .catch(e => dispatch(loginFailure(e)));
+    .catch(e => dispatch(loginFailure(e.message)));
 };
 
 export { loginUser };
@@ -47,10 +47,13 @@ const logoutFailure = (error) => ({
 const logoutUser = () => dispatch => {
   dispatch(logout());
 
-  authService
+  return authService
     .logout()
     .then(response => dispatch(logoutSuccess()))
-    .catch(e => dispatch(logoutFailure(e)));
+    // .catch(e => dispatch(logoutFailure(e.message)));
+    .catch(e => {
+      dispatch(logoutFailure(e.message));
+    });
 };
 
 export { logoutUser };
