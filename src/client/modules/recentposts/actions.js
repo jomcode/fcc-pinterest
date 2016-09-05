@@ -24,10 +24,10 @@ const resetGetRecentPosts = () => ({
 const getAllRecentPosts = () => dispatch => {
   dispatch(getRecentPosts());
 
-  postService
+  return postService
     .getRecent()
     .then(posts => dispatch(getRecentPostsSuccess(posts)))
-    .catch(e => dispatch(getRecentPostsFailure(e)));
+    .catch(e => dispatch(getRecentPostsFailure(e.message)));
 };
 
 export { getAllRecentPosts, resetGetRecentPosts };
