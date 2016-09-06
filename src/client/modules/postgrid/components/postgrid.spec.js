@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import PostGrid from './postgrid';
 import Post from './post';
@@ -17,7 +17,7 @@ const setup = () => {
       postId: 'postId1',
       imageUrl: 'fake url1',
       title: 'fake title1',
-      userId: 'userId1',
+      userId: 'userId2',
       username: 'fake username1'
     }
   ];
