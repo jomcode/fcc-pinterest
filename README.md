@@ -140,11 +140,8 @@ No content
 ## TODO
 - database seeding utility scripts for cli
 - implement acceptance testing (codeceptjs, webdriverio)?
-- dockerize server functional test environment
-- dockerize acceptance test environment
-- set up CI via some service (travis, circle, drone)?
-- set up code coverage service (coveralls, codecov)?
-- set up code climate static analysis service?
+- dockerize client, server unit/integration/functional tests
+- set up code coverage service (code climate)
 - move removepost to its own module on client?
 - cool refactoring stuff with ramda
 - styling and polish on client

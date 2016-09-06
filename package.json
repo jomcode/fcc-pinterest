@@ -6,6 +6,9 @@
   "scripts": {
     "eslint": "eslint",
     "mocha": "mocha",
+    "istanbul": "istanbul",
+    "server:coverage": "better-npm-run server:coverage",
+    "server:coverage:func": "better-npm-run server:coverage:func",
     "start": "node src/server/index.js",
     "dev:server": "better-npm-run dev:server",
     "dev:client": "better-npm-run dev:client",
@@ -25,6 +28,18 @@
     "heroku-postbuild": "npm run build"
   },
   "betterScripts": {
+    "server:coverage": {
+      "command": "istanbul cover -x **/*.func.js -x **/*.spec.js --dir ./coverage/server/unit --report lcov node_modules/mocha/bin/_mocha src/server/**/*.spec.js",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    "server:coverage:func": {
+      "command": "istanbul cover -x **/*.func.js -x **/*.spec.js --dir ./coverage/server/func --report lcov node_modules/mocha/bin/_mocha src/server/**/*.func.js",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
     "dev:server": {
       "command": "nodemon src/server/index.js",
       "env": {

@@ -56,7 +56,7 @@ module.exports = function initKarma(config) {
       dir: 'coverage',
       reporters: [
         { type: 'text-summary' },
-        { type: 'lcov' }
+        { type: 'lcov', subdir: 'client' }
       ]
     },
 
