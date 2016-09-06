@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 const CreatePostForm = (props) => {
@@ -20,6 +20,7 @@ const CreatePostForm = (props) => {
   );
 };
 
-export default reduxForm({
+const WrappedCreatePostForm = reduxForm({
   form: 'createPost'
 })(CreatePostForm);
+export default WrappedCreatePostForm;

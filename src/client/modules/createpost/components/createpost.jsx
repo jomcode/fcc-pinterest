@@ -37,12 +37,16 @@ class CreatePost extends Component {
     return (
       <div>
         <h1>Create Post</h1>
-        <CreatePostForm onSubmit={this._handleSubmit} isFetching={isFetching} />
+        <CreatePostForm
+          onSubmit={this._handleSubmit}
+          isFetching={isFetching}
+        />
       </div>
     );
   }
 }
 
-CreatePost = withRouter(CreatePost);
+export { CreatePost };
 
-export default CreatePost;
+const WrappedCreatePost = withRouter(CreatePost);
+export default WrappedCreatePost;
