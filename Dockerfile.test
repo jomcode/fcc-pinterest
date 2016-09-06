@@ -1,0 +1,17 @@
+FROM node:4.5.0
+
+RUN mkdir -p /usr/src/app
+
+WORKDIR /usr/src/app
+
+COPY package.json /usr/src/app
+
+RUN npm i -q
+
+COPY . /usr/src/app
+
+EXPOSE 9876
+
+VOLUME /usr/src/app/coverage
+
+CMD npm run test

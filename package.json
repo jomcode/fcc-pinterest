@@ -12,13 +12,11 @@
     "dev:client:hot": "better-npm-run dev:client:hot",
     "dev:hot": "better-npm-run dev:hot",
     "build": "better-npm-run build",
-    "test": "better-npm-run test",
+    "test": "npm run test:client",
     "test:client": "better-npm-run test:client",
     "test:client:watch": "better-npm-run test:client:watch",
-    "test:client:sanity": "better-npm-run test:client:sanity",
     "test:server": "better-npm-run test:server",
     "test:server:watch": "better-npm-run test:server:watch",
-    "test:server:sanity": "better-npm-run test:server:sanity",
     "test:server:func": "better-npm-run test:server:func",
     "test:server:func:watch": "better-npm-run test:server:func:watch",
     "tdd:server": "better-npm-run tdd:server",
@@ -58,9 +56,6 @@
         "NODE_ENV": "production"
       }
     },
-    "test": {
-      "command": "concurrent \"npm run test:server\" \"npm run test:client\" \"npm run test:server:func\""
-    },
     "test:client": {
       "command": "karma start",
       "env": {
@@ -74,7 +69,7 @@
       }
     },
     "test:server": {
-      "command": "mocha src/server/**/*.spec.js",
+      "command": "mocha ./src/server/**/*.spec.js",
       "env": {
         "NODE_ENV": "test"
       }
@@ -83,20 +78,6 @@
       "command": "mocha -w src/server/**/*.spec.js",
       "env": {
         "NODE_ENV": "test"
-      }
-    },
-    "test:client:sanity": {
-      "command": "karma start",
-      "env": {
-        "NODE_ENV": "test",
-        "SANITY": "enabled"
-      }
-    },
-    "test:server:sanity": {
-      "command": "mocha src/server/sanity.spec.js",
-      "env": {
-        "NODE_ENV": "test",
-        "SANITY": "enabled"
       }
     },
     "test:server:func": {

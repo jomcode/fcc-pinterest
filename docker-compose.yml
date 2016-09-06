@@ -1,1 +1,27 @@
-# TODO
+version: '2'
+services:
+  webapp:
+    environment:
+      GRAPHENEDB_URL: 'http://neo4j:neo4j@neo4j:7474'
+      REDIS_URL: 'redis://redis:6379'
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    ports:
+      - "9876"
+    depends_on:
+      - neo4j
+      - redis
+    links:
+      - neo4j
+      - redis
+
+  redis:
+    image: redis:3.2.3
+    expose:
+      - "6379"
+  neo4j:
+    image: neo4j:3.0.4
+    expose:
+      - "7474"
+      - "7687"

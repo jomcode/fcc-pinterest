@@ -53,11 +53,9 @@ module.exports = function initKarma(config) {
     singleRun: true,
 
     coverageReporter: {
-      dir: 'coverage/client/',
+      dir: 'coverage',
       reporters: [
         { type: 'text-summary' },
-        { type: 'json' },
-        { type: 'html' },
         { type: 'lcov' }
       ]
     },
