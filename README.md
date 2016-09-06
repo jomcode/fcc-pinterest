@@ -1,4 +1,7 @@
 #Pinterestish App
+
+[![Build Status](https://travis-ci.org/jomcode/fcc-pinterest.svg?branch=master)](https://travis-ci.org/jomcode/fcc-pinterest)
+
 [Heroku Link](https://jomcode-fcc-pinterest.herokuapp.com)
 
 ## Built With
