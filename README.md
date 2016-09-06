@@ -147,7 +147,7 @@ No content
 `npm run test:client` runs unit/integration tests and generates coverage report
 
 ## TODO
-- dockerize client, server unit/integration/functional tests
+- set up travisCI with docker-compose
 - database seeding utility scripts for cli
 - move removepost to its own module on client?
 - cool refactoring stuff with ramda
