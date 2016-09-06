@@ -60,15 +60,15 @@ module.exports = function initKarma(config) {
       ]
     },
 
-    customLaunchers: {
-      ChromeTravisCi: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    }
+    // customLaunchers: {
+      // ChromeTravisCi: {
+        // base: 'Chrome',
+        // flags: ['--no-sandbox']
+      // }
+    // }
   };
 
-  if (process.env.TRAVIS) configuration.browsers = ['ChromeTravisCi'];
+  // if (process.env.TRAVIS) configuration.browsers = ['ChromeTravisCi'];
 
   config.set(configuration);
 };
