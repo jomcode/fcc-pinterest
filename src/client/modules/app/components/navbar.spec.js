@@ -1,109 +1,80 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Link, IndexLink } from 'react-router';
+import { Link } from 'react-router';
 
 import NavBar from './navbar';
-import rootUrl from '../../../config/rooturl';
 
 describe('<NavBar /> component', () => {
-  describe('<NavBar /> component shallow rendered', () => {
-    describe('<NavBar /> while auth.isFetching is true', () => {
-      const fakeAuth = { isFetching: true };
-      const fakeLogoutHandler = {};
-      const fakeCurrentUser = {};
+  describe('<NavBar /> while auth.isFetching is true', () => {
+    const fakeAuth = { isFetching: true };
+    const fakeLogoutHandler = {};
+    const fakeCurrentUser = {};
 
-      it('renders a loading message', () => {
-        const wrapper = shallow(
-          <NavBar
-            auth={fakeAuth}
-            logoutHandler={fakeLogoutHandler}
-            currentUser={fakeCurrentUser}
-          />
-        );
+    it('renders a loading message', () => {
+      const wrapper = shallow(
+        <NavBar
+          auth={fakeAuth}
+          logoutHandler={fakeLogoutHandler}
+          currentUser={fakeCurrentUser}
+        />
+      );
 
-        expect(wrapper.contains(<span>Loading...</span>)).to.equal(true);
-      });
+      expect(wrapper.contains(<span>Loading...</span>)).to.equal(true);
     });
+  });
 
-    describe('<NavBar /> while unauthenticated', () => {
-      const fakeAuth = { isAuthenticated: false };
-      const fakeLogoutHandler = {};
-      const fakeCurrentUser = {};
+  describe('<NavBar /> while unauthenticated', () => {
+    const fakeAuth = { isAuthenticated: false };
+    const fakeLogoutHandler = {};
+    const fakeCurrentUser = {};
+    const logoutButton = (<button>Logout</button>);
 
-      it('renders the expected content', () => {
-        const expected = (
-          <div>
-            <nav className="header-navbar">
-              <div>
-                <a href="#">Pinterestish</a>
-                <IndexLink to="/" activeClassName="active-nav">Recent</IndexLink>
-              </div>
+    it('renders the expected content', () => {
+      const expected = (
+        <button>Login via Twitter</button>
+      );
 
-              <div>
-                <a href={`${rootUrl}/login/twitter`}>
-                  <button>Login via Twitter</button>
-                </a>
-              </div>
-            </nav>
-          </div>
-        );
+      const wrapper = shallow(
+        <NavBar
+          auth={fakeAuth}
+          logoutHandler={fakeLogoutHandler}
+          currentUser={fakeCurrentUser}
+        />
+      );
 
-        const wrapper = shallow(
-          <NavBar
-            auth={fakeAuth}
-            logoutHandler={fakeLogoutHandler}
-            currentUser={fakeCurrentUser}
-          />
-        );
-
-        expect(wrapper.contains(expected)).to.equal(true);
-      });
+      expect(wrapper.contains(expected)).to.equal(true);
+      expect(wrapper.contains(logoutButton)).to.equal(false);
     });
+  });
 
-    describe('<NavBar /> while authenticated', () => {
-      const fakeAuth = { isAuthenticated: true };
-      const fakeLogoutHandler = {};
-      const fakeCurrentUser = { userId: 'userId1' };
+  describe('<NavBar /> while authenticated', () => {
+    const fakeAuth = { isAuthenticated: true };
+    const fakeLogoutHandler = {};
+    const fakeCurrentUser = { userId: 'userId1' };
+    const loginButton = (<button>Login via Twitter</button>);
+    const logoutButton = (<button onClick={fakeLogoutHandler}>Logout</button>);
 
-      it('renders the expected content', () => {
-        const expected = (
-          <div>
-            <nav className="header-navbar">
-              <div>
-                <a href="#">Pinterestish</a>
-                <IndexLink to="/" activeClassName="active-nav">Recent</IndexLink>
-                <Link
-                  to={`/posts/users/${fakeCurrentUser.userId}`}
-                  activeClassName="active-nav"
-                >
-                  Your Posts
-                </Link>
-              </div>
+    it('renders the expected content', () => {
+      const expected = (
+        <Link
+          to={`/posts/users/${fakeCurrentUser.userId}`}
+          activeClassName="active-nav"
+        >
+          Your Posts
+        </Link>
+      );
 
-              <div>
-                <Link
-                  to="/posts/create"
-                  activeClassName="active-nav"
-                >
-                  Create Post
-                </Link>
+      const wrapper = shallow(
+        <NavBar
+          auth={fakeAuth}
+          logoutHandler={fakeLogoutHandler}
+          currentUser={fakeCurrentUser}
+        />
+      );
 
-                <button onClick={fakeLogoutHandler}>Logout</button>
-              </div>
-            </nav>
-          </div>
-        );
-
-        const wrapper = shallow(
-          <NavBar
-            auth={fakeAuth}
-            logoutHandler={fakeLogoutHandler}
-            currentUser={fakeCurrentUser}
-          />
-        );
-
-        expect(wrapper.contains(expected)).to.equal(true);
-      });
+      expect(wrapper.contains(expected)).to.equal(true);
+      expect(wrapper.contains(loginButton)).to.equal(false);
+      expect(wrapper.contains(logoutButton)).to.equal(true);
     });
   });
 });
