@@ -10,17 +10,13 @@ const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
 
 describe('<Root /> component', () => {
-  describe('<Root /> component shallow rendered', () => {
-    it('renders a <Provider />', () => {
-      const wrapper = shallow(<Root store={store} history={history} />);
-      expect(wrapper.find('Provider')).to.have.length(1);
-    });
+  it('renders a <Provider />', () => {
+    const wrapper = shallow(<Root store={store} history={history} />);
+    expect(wrapper.find('Provider')).to.have.length(1);
+  });
 
-    describe('<Provider />', () => {
-      it('containts a child <Router />', () => {
-        const wrapper = shallow(<Root store={store} history={history} />);
-        expect(wrapper.find('Router')).to.have.length(1);
-      });
-    });
+  it('renders a <Router />', () => {
+    const wrapper = shallow(<Root store={store} history={history} />);
+    expect(wrapper.find('Router')).to.have.length(1);
   });
 });
