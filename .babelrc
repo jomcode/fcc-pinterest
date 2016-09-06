@@ -9,7 +9,8 @@
             "**/*.spec.js",
             "config/spec.bundle.js",
             "**/container.js",
-            "**/configurestore.js"
+            "**/configurestore.js",
+            "**/rooturl.js"
           ]
           }]
       ]

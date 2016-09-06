@@ -128,13 +128,18 @@ No content
 
 `npm run test:server:func` runs functional tests (requires redis and neo4j)
 
+**client**
+
+`npm run test:client` runs unit/integration tests
+
 ## TODO
-- finish client tests
 - database seeding utility scripts for cli
-- implement codeceptjs acceptance testing with webdriverio
+- implement acceptance testing (codeceptjs, webdriverio)?
 - dockerize server functional test environment
 - dockerize acceptance test environment
 - set up CI via some service (travis, circle, drone)?
+- set up code coverage service (coveralls, codecov)?
+- set up code climate static analysis service?
 - move removepost to its own module on client?
 - cool refactoring stuff with ramda
 - styling and polish on client
