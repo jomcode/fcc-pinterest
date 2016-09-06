@@ -9,6 +9,7 @@
     "istanbul": "istanbul",
     "server:coverage": "better-npm-run server:coverage",
     "server:coverage:func": "better-npm-run server:coverage:func",
+    "coverage:combine": "istanbul report --root coverage/ --dir coverage/combined lcov",
     "start": "node src/server/index.js",
     "dev:server": "better-npm-run dev:server",
     "dev:client": "better-npm-run dev:client",
