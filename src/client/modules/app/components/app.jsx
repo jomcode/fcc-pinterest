@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import './app.scss';
 import Header from './header';
 
-export class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -45,6 +45,7 @@ export class App extends Component {
   }
 }
 
-App = withRouter(App);
+export { App };
 
-export default App;
+const WrappedApp = withRouter(App);
+export default WrappedApp;

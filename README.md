@@ -134,6 +134,7 @@ No content
 - implement codeceptjs acceptance testing with webdriverio
 - dockerize server functional test environment
 - dockerize acceptance test environment
+- set up CI via some service (travis, circle, drone)?
 - move removepost to its own module on client?
 - cool refactoring stuff with ramda
 - styling and polish on client
