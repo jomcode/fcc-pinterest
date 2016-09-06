@@ -12,6 +12,7 @@
     "dev:client:hot": "better-npm-run dev:client:hot",
     "dev:hot": "better-npm-run dev:hot",
     "build": "better-npm-run build",
+    "test": "better-npm-run test",
     "test:client": "better-npm-run test:client",
     "test:client:watch": "better-npm-run test:client:watch",
     "test:client:sanity": "better-npm-run test:client:sanity",
@@ -56,6 +57,9 @@
       "env": {
         "NODE_ENV": "production"
       }
+    },
+    "test": {
+      "command": "concurrent \"npm run test:server\" \"npm run test:client\" \"npm run test:server:func\""
     },
     "test:client": {
       "command": "karma start",
@@ -155,6 +159,7 @@
     "json-loader": "^0.5.4",
     "karma": "^1.2.0",
     "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.1.1",
     "karma-phantomjs-launcher": "^1.0.1",

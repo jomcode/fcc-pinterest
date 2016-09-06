@@ -5,7 +5,7 @@ const helpers = require('./helpers');
 module.exports = function initKarma(config) {
   const webpackConfig = require(path.join(helpers.rootDir, 'webpack.config'));
 
-  config.set({
+  const configuration = {
     basePath: '',
     browsers: ['PhantomJS'],
     frameworks: ['mocha', 'chai'],
@@ -47,7 +47,8 @@ module.exports = function initKarma(config) {
     },
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    // logLevel: config.LOG_INFO,
+    logLevel: config.LOG_ERROR,
     autoWatch: false,
     singleRun: true,
 
@@ -59,6 +60,17 @@ module.exports = function initKarma(config) {
         { type: 'html' },
         { type: 'lcov' }
       ]
+    },
+
+    customLaunchers: {
+      ChromeTravisCi: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
     }
-  });
+  };
+
+  if (process.env.TRAVIS) configuration.browsers = ['ChromeTravisCi'];
+
+  config.set(configuration);
 };

@@ -122,6 +122,8 @@ No content
 ```
 
 ## Tests
+`npm run test` runs server unit & functional tests, client unit & integration tests
+
 **server**
 
 `npm run test:server` runs unit tests
